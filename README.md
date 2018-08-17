@@ -42,5 +42,5 @@ Alexander Voigt
 Copying
 -------
 
-Polylogarithm is licenced under the GNU Lesser General Public License
-(GNU LGPL) version 3.
+TSIL-Mma is licenced under the GNU General Public License (GNU GPL)
+version 3.
