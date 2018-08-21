@@ -15,6 +15,8 @@
 #include <WolframLibrary.h>
 
 #include "tsil_cpp.h"
+#include "tsil_global.h"
+#include "tsil_names.h"
 
 namespace {
 
@@ -221,10 +223,78 @@ TSIL_DATA make_data(const std::vector<TSIL_REAL>& parsvec)
    return data;
 }
 
-void put_data(const TSIL_DATA& data, MLINK link)
+void put_data(TSIL_DATA& data, MLINK link)
 {
-   // TODO: Implement me!
-   MLPutFunction(link, "List", 0);
+   const int len = 1
+      + NUM_U_FUNCS * NUM_U_PERMS
+      + 2 * NUM_T_FUNCS * NUM_T_PERMS
+      + NUM_S_FUNCS * NUM_S_PERMS
+      + NUM_B_FUNCS * NUM_B_PERMS
+      + NUM_V_FUNCS * NUM_V_PERMS;
+
+#define MLPutRuleToTSILFunction(name) \
+   MLPutRuleTo(link, TSIL_GetFunction(&data, name), name)
+
+   MLPutFunction(link, "List", len);
+   MLPutRuleTo(link, TSIL_GetFunction(&data, "M"), "Mxyzuv");
+   MLPutRuleToTSILFunction("Uzxyv");
+   MLPutRuleToTSILFunction("Uzxvy");
+   MLPutRuleToTSILFunction("Uuyxv");
+   MLPutRuleToTSILFunction("Uuyvx");
+   MLPutRuleToTSILFunction("Uxzuv");
+   MLPutRuleToTSILFunction("Uxzvu");
+   MLPutRuleToTSILFunction("Uyuzv");
+   MLPutRuleToTSILFunction("Uyuvz");
+   MLPutRuleToTSILFunction("Tvyz");
+   MLPutRuleToTSILFunction("Tvzy");
+   MLPutRuleToTSILFunction("Tuxv");
+   MLPutRuleToTSILFunction("Tuvx");
+   MLPutRuleToTSILFunction("Tyzv");
+   MLPutRuleToTSILFunction("Tyvz");
+   MLPutRuleToTSILFunction("Txuv");
+   MLPutRuleToTSILFunction("Txvu");
+   MLPutRuleToTSILFunction("Tzyv");
+   MLPutRuleToTSILFunction("Tzvy");
+   MLPutRuleToTSILFunction("Tvxu");
+   MLPutRuleToTSILFunction("Tvux");
+   MLPutRuleToTSILFunction("Svyz");
+   MLPutRuleToTSILFunction("Szvy");
+   MLPutRuleToTSILFunction("Syzv");
+   MLPutRuleToTSILFunction("Svzy");
+   MLPutRuleToTSILFunction("Syvz");
+   MLPutRuleToTSILFunction("Szyv");
+   MLPutRuleToTSILFunction("Suxv");
+   MLPutRuleToTSILFunction("Svux");
+   MLPutRuleToTSILFunction("Sxvu");
+   MLPutRuleToTSILFunction("Suvx");
+   MLPutRuleToTSILFunction("Sxuv");
+   MLPutRuleToTSILFunction("Svxu");
+   MLPutRuleToTSILFunction("Bxz");
+   MLPutRuleToTSILFunction("Bzx");
+   MLPutRuleToTSILFunction("Byu");
+   MLPutRuleToTSILFunction("Buy");
+   MLPutRuleToTSILFunction("Vzxyv");
+   MLPutRuleToTSILFunction("Vzxvy");
+   MLPutRuleToTSILFunction("Vuyxv");
+   MLPutRuleToTSILFunction("Vuyvx");
+   MLPutRuleToTSILFunction("Vxzuv");
+   MLPutRuleToTSILFunction("Vxzvu");
+   MLPutRuleToTSILFunction("Vyuzv");
+   MLPutRuleToTSILFunction("Vyuvz");
+   MLPutRuleToTSILFunction("TBARvyz");
+   MLPutRuleToTSILFunction("TBARvzy");
+   MLPutRuleToTSILFunction("TBARuxv");
+   MLPutRuleToTSILFunction("TBARuvx");
+   MLPutRuleToTSILFunction("TBARyzv");
+   MLPutRuleToTSILFunction("TBARyvz");
+   MLPutRuleToTSILFunction("TBARxuv");
+   MLPutRuleToTSILFunction("TBARxvu");
+   MLPutRuleToTSILFunction("TBARzyv");
+   MLPutRuleToTSILFunction("TBARzvy");
+   MLPutRuleToTSILFunction("TBARvxu");
+   MLPutRuleToTSILFunction("TBARvux");
+
+#undef MLPutRuleToTSILFunction
 }
 
 } // anonymous namespace
