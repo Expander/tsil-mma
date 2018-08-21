@@ -36,7 +36,9 @@ sym = {
     Svyz, Suxv,
     Bxz, Byu,
     Vzxyv, Vuyxv, Vxzuv, Vyuzv,
-    TBARvyz, TBARuxv, TBARyzv, TBARxuv, TBARzyv, TBARvxu
+    TBARvyz, TBARuxv, TBARyzv, TBARxuv, TBARzyv, TBARvxu,
+    Ixyv, Izuv,
+    Ax, Ay, Az, Au, Av
 };
 
 TestClose[sym /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
@@ -72,7 +74,17 @@ TestClose[sym /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
               TBARyzv  -> -2.2324104469869441 +  0.0000000000000008 I,
               TBARxuv  -> -3.0122117237897288 +  0.0000000000000003 I,
               TBARzyv  -> -1.2678544111018766 + -0.0000000000000005 I,
-              TBARvxu  ->  1.9498686438515711 +  1.5168594966335585 I
+              TBARvxu  ->  1.9498686438515711 +  1.5168594966335585 I,
+
+              Ixyv     -> -2.4330986130738634 +  0.0000000000000000 I,
+              Izuv     ->  5.1155528299660125 +  0.0000000000000000 I,
+
+              Ax       -> -1.0000000000000000 +  0.0000000000000000 I,
+              Ay       -> -0.6137056388801094 +  0.0000000000000000 I,
+              Az       ->  0.2958368660043291 +  0.0000000000000000 I,
+              Au       ->  1.5451774444795625 +  0.0000000000000000 I,
+              Av       ->  3.0471895621705021 +  0.0000000000000000 I
+
           }];
 
 Print["Number of passed tests: ", passedTests];

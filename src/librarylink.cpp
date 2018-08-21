@@ -196,7 +196,25 @@ std::vector<TSIL_REAL> read_list(MLINK link)
 
 /******************************************************************/
 
-TSIL_DATA make_data(const std::vector<TSIL_REAL>& parsvec)
+struct TSIL_Mma_Data {
+   TSIL_DATA data;
+   TSIL_COMPLEX Ax{}, Ay{}, Az{}, Au{}, Av{};
+   TSIL_COMPLEX Ixyv{}, Izuv{};
+   // TSIL_COMPLEX Ap{};
+   // TSIL_COMPLEX Aeps{};
+   // TSIL_COMPLEX B{};
+   // TSIL_COMPLEX Bp{};
+   // TSIL_COMPLEX dBds{};
+   // TSIL_COMPLEX Beps{};
+   // TSIL_COMPLEX I2p{};
+   // TSIL_COMPLEX I2p2{};
+   // TSIL_COMPLEX I2pp{};
+   // TSIL_COMPLEX I2p3{};
+};
+
+/******************************************************************/
+
+TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
 {
    int c = 0; // counter
 
@@ -208,11 +226,6 @@ TSIL_DATA make_data(const std::vector<TSIL_REAL>& parsvec)
    const TSIL_REAL s  = parsvec.at(c++);
    const TSIL_REAL qq = parsvec.at(c++);
 
-   TSIL_DATA data;
-
-   TSIL_SetParameters(&data, x, y, z, u, v, qq);
-   TSIL_Evaluate(&data, s);
-
    if (c != parsvec.size()) {
       throw std::runtime_error(
          "Bug: Expecting to read " + std::to_string(parsvec.size()) +
@@ -220,23 +233,52 @@ TSIL_DATA make_data(const std::vector<TSIL_REAL>& parsvec)
          " parameters have been read.");
    }
 
+   TSIL_Mma_Data data;
+
+   TSIL_SetParameters(&data.data, x, y, z, u, v, qq);
+   TSIL_Evaluate(&data.data, s);
+
+   data.Ax = TSIL_A(x, qq);
+   data.Ay = TSIL_A(y, qq);
+   data.Az = TSIL_A(z, qq);
+   data.Au = TSIL_A(u, qq);
+   data.Av = TSIL_A(v, qq);
+
+   data.Ixyv = TSIL_I2(x, y, v, qq);
+   data.Izuv = TSIL_I2(z, u, v, qq);
+
+   // data.Ap = TSIL_Ap(x, qq);
+   // data.Aeps = TSIL_Aeps(x, qq);
+   // data.B = TSIL_B(x, y, s, qq);
+   // data.Bp = TSIL_Bp(x, y, s, qq);
+   // data.dBds = TSIL_dBds(x, y, s, qq);
+   // data.Beps = TSIL_Beps(x, y, s, qq);
+   // data.I2p = TSIL_I2p(x, y, z, qq);
+   // data.I2p2 = TSIL_I2p2(x, y, z, qq);
+   // data.I2pp = TSIL_I2pp(x, y, z, qq);
+   // data.I2p3 = TSIL_I2p3(x, y, z, qq);
+
    return data;
 }
 
-void put_data(TSIL_DATA& data, MLINK link)
+void put_data(TSIL_Mma_Data& data, MLINK link)
 {
    const int len = 1
       + NUM_U_FUNCS * NUM_U_PERMS
       + 2 * NUM_T_FUNCS * NUM_T_PERMS
       + NUM_S_FUNCS * NUM_S_PERMS
       + NUM_B_FUNCS * NUM_B_PERMS
-      + NUM_V_FUNCS * NUM_V_PERMS;
-
-#define MLPutRuleToTSILFunction(name) \
-   MLPutRuleTo(link, TSIL_GetFunction(&data, name), name)
+      + NUM_V_FUNCS * NUM_V_PERMS
+      + 5 // A
+      + 2 // I
+      ;
 
    MLPutFunction(link, "List", len);
-   MLPutRuleTo(link, TSIL_GetFunction(&data, "M"), "Mxyzuv");
+   MLPutRuleTo(link, TSIL_GetFunction(&data.data, "M"), "Mxyzuv");
+
+#define MLPutRuleToTSILFunction(name) \
+   MLPutRuleTo(link, TSIL_GetFunction(&data.data, name), name)
+
    MLPutRuleToTSILFunction("Uzxyv");
    MLPutRuleToTSILFunction("Uzxvy");
    MLPutRuleToTSILFunction("Uuyxv");
@@ -295,6 +337,31 @@ void put_data(TSIL_DATA& data, MLINK link)
    MLPutRuleToTSILFunction("TBARvux");
 
 #undef MLPutRuleToTSILFunction
+
+#define MLPutRuleToTSILFunction(name) \
+   MLPutRuleTo(link, data.name, #name)
+
+   MLPutRuleToTSILFunction(Ax);
+   MLPutRuleToTSILFunction(Ay);
+   MLPutRuleToTSILFunction(Az);
+   MLPutRuleToTSILFunction(Au);
+   MLPutRuleToTSILFunction(Av);
+
+   MLPutRuleToTSILFunction(Ixyv);
+   MLPutRuleToTSILFunction(Izuv);
+
+   // MLPutRuleToTSILFunction(Ap);
+   // MLPutRuleToTSILFunction(Aeps);
+   // MLPutRuleToTSILFunction(B);
+   // MLPutRuleToTSILFunction(Bp);
+   // MLPutRuleToTSILFunction(dBds);
+   // MLPutRuleToTSILFunction(Beps);
+   // MLPutRuleToTSILFunction(I2p);
+   // MLPutRuleToTSILFunction(I2p2);
+   // MLPutRuleToTSILFunction(I2pp);
+   // MLPutRuleToTSILFunction(I2p3);
+
+#undef MLPutRuleToTSILFunction
 }
 
 } // anonymous namespace
@@ -310,7 +377,7 @@ DLLEXPORT int TSILEvaluateLoopFunctions(
       return LIBRARY_TYPE_ERROR;
 
    try {
-      TSIL_DATA data;
+      TSIL_Mma_Data data;
 
       {
          Redirect_output rd(link);
