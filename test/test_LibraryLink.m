@@ -39,9 +39,7 @@ sym = {
     TBARvyz, TBARuxv, TBARyzv, TBARxuv, TBARzyv, TBARvxu
 };
 
-lf = TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1];
-
-TestClose[sym /. lf,
+TestClose[sym /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
           sym /. {
               (* obtained by ./tsil 1 2 3 4 5 10 1 *)
               Mxyzuv   ->  0.7183353535335331 +  0.3901621999727627 I,
