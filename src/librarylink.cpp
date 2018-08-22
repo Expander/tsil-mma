@@ -15,8 +15,6 @@
 #include <WolframLibrary.h>
 
 #include "tsil_cpp.h"
-#include "tsil_global.h"
-#include "tsil_names.h"
 
 namespace {
 
@@ -269,12 +267,15 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
 
 void put_data(TSIL_Mma_Data& data, MLINK link)
 {
-   const int len = 1
-      + NUM_U_FUNCS * NUM_U_PERMS
-      + 2 * NUM_T_FUNCS * NUM_T_PERMS
-      + NUM_S_FUNCS * NUM_S_PERMS
-      + NUM_B_FUNCS * NUM_B_PERMS
-      + NUM_V_FUNCS * NUM_V_PERMS
+#include "tsil_global.h"
+#include "tsil_names.h"
+
+   const int len = 1 // M
+      + NUM_U_FUNCS * NUM_U_PERMS // U
+      + 2 * NUM_T_FUNCS * NUM_T_PERMS // T and Tbar
+      + NUM_S_FUNCS * NUM_S_PERMS // S
+      + NUM_B_FUNCS * NUM_B_PERMS // B
+      + NUM_V_FUNCS * NUM_V_PERMS // V
       + 5 // A
       + 2 // I
       ;
@@ -282,67 +283,41 @@ void put_data(TSIL_Mma_Data& data, MLINK link)
    MLPutFunction(link, "List", len);
    MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, "M")), "Mxyzuv");
 
-#define MLPutRuleToTSILFunction(name) \
-   MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, name)), name)
+   for (int i = 0; i < NUM_U_FUNCS; i++) {
+      for (int j = 0; j < NUM_U_PERMS; j++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, uname[i][j])), uname[i][j]);
+      }
+   }
 
-   MLPutRuleToTSILFunction("Uzxyv");
-   MLPutRuleToTSILFunction("Uzxvy");
-   MLPutRuleToTSILFunction("Uuyxv");
-   MLPutRuleToTSILFunction("Uuyvx");
-   MLPutRuleToTSILFunction("Uxzuv");
-   MLPutRuleToTSILFunction("Uxzvu");
-   MLPutRuleToTSILFunction("Uyuzv");
-   MLPutRuleToTSILFunction("Uyuvz");
-   MLPutRuleToTSILFunction("Tvyz");
-   MLPutRuleToTSILFunction("Tvzy");
-   MLPutRuleToTSILFunction("Tuxv");
-   MLPutRuleToTSILFunction("Tuvx");
-   MLPutRuleToTSILFunction("Tyzv");
-   MLPutRuleToTSILFunction("Tyvz");
-   MLPutRuleToTSILFunction("Txuv");
-   MLPutRuleToTSILFunction("Txvu");
-   MLPutRuleToTSILFunction("Tzyv");
-   MLPutRuleToTSILFunction("Tzvy");
-   MLPutRuleToTSILFunction("Tvxu");
-   MLPutRuleToTSILFunction("Tvux");
-   MLPutRuleToTSILFunction("Svyz");
-   MLPutRuleToTSILFunction("Szvy");
-   MLPutRuleToTSILFunction("Syzv");
-   MLPutRuleToTSILFunction("Svzy");
-   MLPutRuleToTSILFunction("Syvz");
-   MLPutRuleToTSILFunction("Szyv");
-   MLPutRuleToTSILFunction("Suxv");
-   MLPutRuleToTSILFunction("Svux");
-   MLPutRuleToTSILFunction("Sxvu");
-   MLPutRuleToTSILFunction("Suvx");
-   MLPutRuleToTSILFunction("Sxuv");
-   MLPutRuleToTSILFunction("Svxu");
-   MLPutRuleToTSILFunction("Bxz");
-   MLPutRuleToTSILFunction("Bzx");
-   MLPutRuleToTSILFunction("Byu");
-   MLPutRuleToTSILFunction("Buy");
-   MLPutRuleToTSILFunction("Vzxyv");
-   MLPutRuleToTSILFunction("Vzxvy");
-   MLPutRuleToTSILFunction("Vuyxv");
-   MLPutRuleToTSILFunction("Vuyvx");
-   MLPutRuleToTSILFunction("Vxzuv");
-   MLPutRuleToTSILFunction("Vxzvu");
-   MLPutRuleToTSILFunction("Vyuzv");
-   MLPutRuleToTSILFunction("Vyuvz");
-   MLPutRuleToTSILFunction("TBARvyz");
-   MLPutRuleToTSILFunction("TBARvzy");
-   MLPutRuleToTSILFunction("TBARuxv");
-   MLPutRuleToTSILFunction("TBARuvx");
-   MLPutRuleToTSILFunction("TBARyzv");
-   MLPutRuleToTSILFunction("TBARyvz");
-   MLPutRuleToTSILFunction("TBARxuv");
-   MLPutRuleToTSILFunction("TBARxvu");
-   MLPutRuleToTSILFunction("TBARzyv");
-   MLPutRuleToTSILFunction("TBARzvy");
-   MLPutRuleToTSILFunction("TBARvxu");
-   MLPutRuleToTSILFunction("TBARvux");
+   for (int i = 0; i < NUM_T_FUNCS; i++) {
+      for (int j = 0; j < NUM_T_PERMS; j++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, tname[i][j])), tname[i][j]);
+      }
+   }
 
-#undef MLPutRuleToTSILFunction
+   for (int i = 0; i < NUM_T_FUNCS; i++) {
+      for (int j = 0; j < NUM_T_PERMS; j++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, tbarname[i][j])), tbarname[i][j]);
+      }
+   }
+
+   for (int i = 0; i < NUM_S_FUNCS; i++) {
+      for (int j = 0; j < NUM_S_PERMS; j++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, sname[i][j])), sname[i][j]);
+      }
+   }
+
+   for (int i = 0; i < NUM_B_FUNCS; i++) {
+      for (int j = 0; j < NUM_B_PERMS; j++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, bname[i][j])), bname[i][j]);
+      }
+   }
+
+   for (int i = 0; i < NUM_V_FUNCS; i++) {
+      for (int j = 0; j < NUM_V_PERMS; j++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, vname[i][j])), vname[i][j]);
+      }
+   }
 
 #define MLPutRuleToTSILFunction(name) \
    MLPutRuleTo(link, data.name, #name)
