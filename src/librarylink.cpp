@@ -37,14 +37,20 @@ inline void MLPut(MLINK link, double c)
    MLPutReal(link, c);
 }
 
-inline void MLPut(MLINK link, std::complex<double> c)
+inline void MLPut(MLINK link, long double c)
+{
+   MLPutReal128(link, c);
+}
+
+template <class T>
+void MLPut(MLINK link, std::complex<T> c)
 {
    if (std::imag(c) == 0.) {
-      MLPutReal(link, std::real(c));
+      MLPut(link, std::real(c));
    } else {
       MLPutFunction(link, "Complex", 2);
-      MLPutReal(link, std::real(c));
-      MLPutReal(link, std::imag(c));
+      MLPut(link, std::real(c));
+      MLPut(link, std::imag(c));
    }
 }
 
@@ -198,18 +204,18 @@ std::vector<TSIL_REAL> read_list(MLINK link)
 
 struct TSIL_Mma_Data {
    TSIL_DATA data;
-   TSIL_COMPLEX Ax{}, Ay{}, Az{}, Au{}, Av{};
-   TSIL_COMPLEX Ixyv{}, Izuv{};
-   // TSIL_COMPLEX Ap{};
-   // TSIL_COMPLEX Aeps{};
-   // TSIL_COMPLEX B{};
-   // TSIL_COMPLEX Bp{};
-   // TSIL_COMPLEX dBds{};
-   // TSIL_COMPLEX Beps{};
-   // TSIL_COMPLEX I2p{};
-   // TSIL_COMPLEX I2p2{};
-   // TSIL_COMPLEX I2pp{};
-   // TSIL_COMPLEX I2p3{};
+   TSIL_COMPLEXCPP Ax{}, Ay{}, Az{}, Au{}, Av{};
+   TSIL_COMPLEXCPP Ixyv{}, Izuv{};
+   // TSIL_COMPLEXCPP Ap{};
+   // TSIL_COMPLEXCPP Aeps{};
+   // TSIL_COMPLEXCPP B{};
+   // TSIL_COMPLEXCPP Bp{};
+   // TSIL_COMPLEXCPP dBds{};
+   // TSIL_COMPLEXCPP Beps{};
+   // TSIL_COMPLEXCPP I2p{};
+   // TSIL_COMPLEXCPP I2p2{};
+   // TSIL_COMPLEXCPP I2pp{};
+   // TSIL_COMPLEXCPP I2p3{};
 };
 
 /******************************************************************/
@@ -274,10 +280,10 @@ void put_data(TSIL_Mma_Data& data, MLINK link)
       ;
 
    MLPutFunction(link, "List", len);
-   MLPutRuleTo(link, TSIL_GetFunction(&data.data, "M"), "Mxyzuv");
+   MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, "M")), "Mxyzuv");
 
 #define MLPutRuleToTSILFunction(name) \
-   MLPutRuleTo(link, TSIL_GetFunction(&data.data, name), name)
+   MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, name)), name)
 
    MLPutRuleToTSILFunction("Uzxyv");
    MLPutRuleToTSILFunction("Uzxvy");
@@ -385,6 +391,37 @@ DLLEXPORT int TSILEvaluateLoopFunctions(
       }
 
       put_data(data, link);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
+DLLEXPORT int TSILA(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILA"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL qq = parsvec.at(1);
+
+      TSIL_COMPLEXCPP A;
+
+      {
+         Redirect_output rd(link);
+         A = c2cpp(TSIL_A(x, qq));
+      }
+
+      MLPut(link, A);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");

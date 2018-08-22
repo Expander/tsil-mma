@@ -41,6 +41,10 @@ sym = {
     Ax, Ay, Az, Au, Av
 };
 
+Print[];
+Print["Testing TSILEvaluateLoopFunctions ..."];
+Print[];
+
 TestClose[sym /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
           sym /. {
               (* obtained by ./tsil 1 2 3 4 5 10 1 *)
@@ -86,6 +90,13 @@ TestClose[sym /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
               Av       ->  3.0471895621705021 +  0.0000000000000000 I
 
           }];
+
+Print[];
+Print["Testing TSILA ..."];
+Print[];
+
+TestClose[Ax /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
+          TSILA[1, 1]];
 
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];

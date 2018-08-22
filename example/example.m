@@ -4,4 +4,14 @@ Get[FileNameJoin[{"..", "src", "LibraryLink.m"}]];
 (* initialize the LibrayLink *)
 TSILInitialize[FileNameJoin[{"src", "LibraryLink.so"}]];
 
-Print @ TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1]
+x  = 1;
+y  = 2;
+z  = 3;
+u  = 4;
+v  = 5;
+s  = 10;
+qq = 1;
+
+Print[TSILEvaluateLoopFunctions[x, y, z, u, v, qq, s]];
+
+Print["A(x,qq) = ", TSILA[x, qq]];
