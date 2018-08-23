@@ -538,6 +538,53 @@ DLLEXPORT int TSILI(WolframLibraryData /* libData */, MLINK link)
 
 /******************************************************************/
 
+DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILM"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x = parsvec.at(0);
+      const TSIL_REAL y = parsvec.at(1);
+      const TSIL_REAL z = parsvec.at(2);
+      const TSIL_REAL u = parsvec.at(3);
+      const TSIL_REAL v = parsvec.at(4);
+      const TSIL_REAL s = parsvec.at(5);
+
+      TSIL_COMPLEXCPP Mcpp;
+
+      {
+         Redirect_output rd(link);
+
+         TSIL_COMPLEX M;
+         const bool is_analytic = TSIL_Manalytic(x, y, z, u, v, s, &M);
+
+         if (is_analytic) {
+            Mcpp = c2cpp(M);
+         } else {
+            const TSIL_REAL qq = 1; // M is independent of qq
+            TSIL_DATA data;
+            TSIL_SetParameters(&data, x, y, z, u, v, qq);
+            TSIL_Evaluate(&data, s);
+            Mcpp = c2cpp(TSIL_GetFunction(&data, "M"));
+         }
+      }
+
+      MLPut(link, Mcpp);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
 DLLEXPORT mint WolframLibrary_getVersion()
 {
    return WolframLibraryVersion;

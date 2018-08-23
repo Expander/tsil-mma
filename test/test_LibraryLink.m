@@ -127,6 +127,11 @@ TestClose[Ixyv /. results,
 TestClose[Izuv /. results,
           TSILI[z, u, v, qq]];
 
+PrintHeadline["Testing TSILM"];
+
+TestClose[Mxyzuv /. results,
+          TSILM[x, y, z, u, v, s]];
+
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
 
