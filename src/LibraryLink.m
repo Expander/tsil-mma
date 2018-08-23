@@ -21,6 +21,10 @@ TSILBp::usage = "Bp(x,y,s,Q^2)";
 TSILdBds::usage = "dBds(x,y,s,Q^2)";
 TSILBeps::usage = "Beps(x,y,s,Q^2)";
 TSILI::usage = "I(x,y,z,Q^2)";
+TSILIp::usage = "Ip(x,y,z,Q^2)";
+TSILIp2::usage = "Ip2(x,y,z,Q^2)";
+TSILIpp::usage = "Ipp(x,y,z,Q^2)";
+TSILIp3::usage = "Ip3(x,y,z,Q^2)";
 TSILM::usage = "M(x,y,z,u,v,s)";
 TSILS::usage = "S(x,y,z,s,qq)";
 TSILT::usage = "T(x,y,z,s,qq)";
@@ -65,6 +69,14 @@ TSILInitialize[libName_String] := (
           LibraryFunctionLoad[libName, "TSILBeps", LinkObject, LinkObject];
        TSILILL =
           LibraryFunctionLoad[libName, "TSILI", LinkObject, LinkObject];
+       TSILIpLL =
+          LibraryFunctionLoad[libName, "TSILIp", LinkObject, LinkObject];
+       TSILIp2LL =
+          LibraryFunctionLoad[libName, "TSILIp2", LinkObject, LinkObject];
+       TSILIppLL =
+          LibraryFunctionLoad[libName, "TSILIpp", LinkObject, LinkObject];
+       TSILIp3LL =
+          LibraryFunctionLoad[libName, "TSILIp3", LinkObject, LinkObject];
        TSILMLL =
           LibraryFunctionLoad[libName, "TSILM", LinkObject, LinkObject];
        TSILSLL =
@@ -95,6 +107,14 @@ TSILdBds[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILdBdsLL[{x, 
 TSILBeps[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBepsLL[{x, y, s, qq}];
 
 TSILI[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILILL[{x, y, z, qq}];
+
+TSILIp[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILIpLL[{x, y, z, qq}];
+
+TSILIp2[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILIp2LL[{x, y, z, qq}];
+
+TSILIpp[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILIppLL[{x, y, z, qq}];
+
+TSILIp3[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILIp3LL[{x, y, z, qq}];
 
 TSILM[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ] := TSILMLL[{x, y, z, u, v, s}];
 

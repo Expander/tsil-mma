@@ -637,6 +637,138 @@ DLLEXPORT int TSILI(WolframLibraryData /* libData */, MLINK link)
 
 /******************************************************************/
 
+DLLEXPORT int TSILIp(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILIp"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL z  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP I2p;
+
+      {
+         Redirect_output rd(link);
+         I2p = c2cpp(TSIL_I2p(x, y, z, qq));
+      }
+
+      MLPut(link, I2p);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
+DLLEXPORT int TSILIp2(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILIp2"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL z  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP I2p2;
+
+      {
+         Redirect_output rd(link);
+         I2p2 = c2cpp(TSIL_I2p2(x, y, z, qq));
+      }
+
+      MLPut(link, I2p2);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
+DLLEXPORT int TSILIpp(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILIpp"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL z  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP I2pp;
+
+      {
+         Redirect_output rd(link);
+         I2pp = c2cpp(TSIL_I2pp(x, y, z, qq));
+      }
+
+      MLPut(link, I2pp);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
+DLLEXPORT int TSILIp3(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILIp3"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL z  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP I2p3;
+
+      {
+         Redirect_output rd(link);
+         I2p3 = c2cpp(TSIL_I2p3(x, y, z, qq));
+      }
+
+      MLPut(link, I2p3);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
 DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
 {
    if (!check_number_of_args(link, 1, "TSILM"))

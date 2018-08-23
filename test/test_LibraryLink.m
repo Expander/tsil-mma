@@ -139,6 +139,29 @@ TestClose[Ixyv /. results,
 TestClose[Izuv /. results,
           TSILI[z, u, v, qq]];
 
+PrintHeadline["Testing TSILIp"];
+
+TestClose[ND[TSILI[xx, y, s, qq], xx, x],
+          TSILIp[x, y, s, qq], 1*^-9];
+
+PrintHeadline["Testing TSILIp2"];
+
+TestClose[ND[TSILI[xx, y, s, qq], {xx, 2}, x],
+          TSILIp2[x, y, s, qq], 1*^-6];
+
+PrintHeadline["Testing TSILIpp"];
+
+DI1[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] :=
+    ND[TSILI[xx, y, s, qq], xx, x];
+
+TestClose[ND[DI1[x, yy, s, qq], yy, y],
+          TSILIpp[x, y, s, qq], 1*^-9];
+
+PrintHeadline["Testing TSILIp3"];
+
+TestClose[ND[TSILI[xx, y, s, qq], {xx, 3}, x],
+          TSILIp3[x, y, s, qq], 1*^-4];
+
 PrintHeadline["Testing TSILM"];
 
 TestClose[Mxyzuv /. results,
