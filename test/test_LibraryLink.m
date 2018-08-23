@@ -160,6 +160,26 @@ TestClose[Tzyv /. results,
 TestClose[Tvxu /. results,
           TSILT[v, x, u, s, qq]];
 
+PrintHeadline["Testing TSILTbar"];
+
+TestClose[TBARvyz /. results,
+          TSILTbar[v, y, z, s, qq]];
+
+TestClose[TBARuxv /. results,
+          TSILTbar[u, x, v, s, qq]];
+
+TestClose[TBARyzv /. results,
+          TSILTbar[y, z, v, s, qq]];
+
+TestClose[TBARxuv /. results,
+          TSILTbar[x, u, v, s, qq]];
+
+TestClose[TBARzyv /. results,
+          TSILTbar[z, y, v, s, qq]];
+
+TestClose[TBARvxu /. results,
+          TSILTbar[v, x, u, s, qq]];
+
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
 
