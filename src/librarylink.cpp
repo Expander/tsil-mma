@@ -412,7 +412,7 @@ DLLEXPORT int TSILA(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILAp(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILA"))
+   if (!check_number_of_args(link, 1, "TSILAp"))
       return LIBRARY_TYPE_ERROR;
 
    try {
@@ -443,7 +443,7 @@ DLLEXPORT int TSILAp(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILAeps(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILA"))
+   if (!check_number_of_args(link, 1, "TSILAeps"))
       return LIBRARY_TYPE_ERROR;
 
    try {
@@ -474,7 +474,7 @@ DLLEXPORT int TSILAeps(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILB(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILA"))
+   if (!check_number_of_args(link, 1, "TSILB"))
       return LIBRARY_TYPE_ERROR;
 
    try {
@@ -492,6 +492,39 @@ DLLEXPORT int TSILB(WolframLibraryData /* libData */, MLINK link)
       }
 
       MLPut(link, B);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
+DLLEXPORT int TSILI(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILI"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL z  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP I2;
+
+      {
+         Redirect_output rd(link);
+         I2 = c2cpp(TSIL_I2(x, y, z, qq));
+      }
+
+      MLPut(link, I2);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");

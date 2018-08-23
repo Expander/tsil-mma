@@ -29,6 +29,14 @@ TestClose[a_, b_, eps_:10^-15] :=
        failedTests++
       ];
 
+PrintHeadline[a___] := (
+    Print[];
+    Print["=================================================="];
+    Print[a];
+    Print["=================================================="];
+    Print[];
+);
+
 sym = {
     Mxyzuv,
     Uzxyv, Uuyxv, Uxzuv, Uyuzv,
@@ -41,9 +49,7 @@ sym = {
     Ax, Ay, Az, Au, Av
 };
 
-Print[];
-Print["Testing TSILEvaluateLoopFunctions ..."];
-Print[];
+PrintHeadline["Testing TSILEvaluateLoopFunctions"];
 
 TestClose[sym /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
           sym /. {
@@ -91,22 +97,26 @@ TestClose[sym /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
 
           }];
 
-Print[];
-Print["Testing TSILA ..."];
-Print[];
+PrintHeadline["Testing TSILA"];
 
 TestClose[Ax /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
           TSILA[1, 1]];
 
-Print[];
-Print["Testing TSILB ..."];
-Print[];
+PrintHeadline["Testing TSILB"];
 
 TestClose[Bxz /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
           TSILB[1, 3, 10, 1]];
 
 TestClose[Byu /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
           TSILB[2, 4, 10, 1]];
+
+PrintHeadline["Testing TSILI"];
+
+TestClose[Ixyv /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
+          TSILI[1, 2, 5, 1]];
+
+TestClose[Izuv /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
+          TSILI[3, 4, 5, 1]];
 
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];

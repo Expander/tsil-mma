@@ -18,3 +18,4 @@ Print["A(x,qq)     = ", TSILA[x, qq]];
 Print["Ap(x,qq)    = ", TSILAp[x, qq]];
 Print["Aeps(x,qq)  = ", TSILAeps[x, qq]];
 Print["B(x,y,s,qq) = ", TSILB[x, y, s, qq]];
+Print["I(x,y,z,qq) = ", TSILI[x, y, z, qq]];
