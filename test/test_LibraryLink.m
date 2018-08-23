@@ -1,3 +1,5 @@
+Needs["NumericalCalculus`"];
+
 (* load LibrayLink *)
 Get[FileNameJoin[{DirectoryName[$InputFileName], "..", "src", "LibraryLink.m"}]];
 TSILInitialize[libPath];
@@ -118,6 +120,16 @@ TestClose[Bxz /. results,
 
 TestClose[Byu /. results,
           TSILB[y, u, s, qq]];
+
+PrintHeadline["Testing TSILBp"];
+
+TestClose[ND[TSILB[xx, y, s, qq], xx, x],
+          TSILBp[x, y, s, qq], 1*^-9];
+
+PrintHeadline["Testing TSILdBds"];
+
+TestClose[ND[TSILB[x, y, ss, qq], ss, s],
+          TSILdBds[x, y, s, qq], 1*^-9];
 
 PrintHeadline["Testing TSILI"];
 

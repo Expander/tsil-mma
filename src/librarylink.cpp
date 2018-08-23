@@ -505,6 +505,105 @@ DLLEXPORT int TSILB(WolframLibraryData /* libData */, MLINK link)
 
 /******************************************************************/
 
+DLLEXPORT int TSILBp(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILBp"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL s  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP Bp;
+
+      {
+         Redirect_output rd(link);
+         Bp = c2cpp(TSIL_Bp(x, y, s, qq));
+      }
+
+      MLPut(link, Bp);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
+DLLEXPORT int TSILdBds(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILdBds"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL s  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP dBds;
+
+      {
+         Redirect_output rd(link);
+         dBds = c2cpp(TSIL_dBds(x, y, s, qq));
+      }
+
+      MLPut(link, dBds);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
+DLLEXPORT int TSILBeps(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILBeps"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL s  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP Beps;
+
+      {
+         Redirect_output rd(link);
+         Beps = c2cpp(TSIL_Beps(x, y, s, qq));
+      }
+
+      MLPut(link, Beps);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
 DLLEXPORT int TSILI(WolframLibraryData /* libData */, MLINK link)
 {
    if (!check_number_of_args(link, 1, "TSILI"))
