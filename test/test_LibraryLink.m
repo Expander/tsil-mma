@@ -182,17 +182,19 @@ TestClose[TBARvxu /. results,
 
 PrintHeadline["Testing TSILU"];
 
+eps = 1*^-14;
+
 TestClose[Uzxyv /. results,
-          TSILU[z, x, y, v, s, qq]];
+          TSILU[z, x, y, v, s, qq], eps];
 
 TestClose[Uuyxv /. results,
-          TSILU[u, y, x, v, s, qq]];
+          TSILU[u, y, x, v, s, qq], eps];
 
 TestClose[Uxzuv /. results,
-          TSILU[x, z, u, v, s, qq]];
+          TSILU[x, z, u, v, s, qq], eps];
 
 TestClose[Uyuzv /. results,
-          TSILU[y, u, z, v, s, qq]];
+          TSILU[y, u, z, v, s, qq], eps];
 
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
