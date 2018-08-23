@@ -180,6 +180,20 @@ TestClose[TBARzyv /. results,
 TestClose[TBARvxu /. results,
           TSILTbar[v, x, u, s, qq]];
 
+PrintHeadline["Testing TSILU"];
+
+TestClose[Uzxyv /. results,
+          TSILU[z, x, y, v, s, qq]];
+
+TestClose[Uuyxv /. results,
+          TSILU[u, y, x, v, s, qq]];
+
+TestClose[Uxzuv /. results,
+          TSILU[x, z, u, v, s, qq]];
+
+TestClose[Uyuzv /. results,
+          TSILU[y, u, z, v, s, qq]];
+
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
 

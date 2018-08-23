@@ -22,6 +22,7 @@ TSILM::usage = "M(x,y,z,u,v,s)";
 TSILS::usage = "S(x,y,z,s,qq)";
 TSILT::usage = "T(x,y,z,s,qq)";
 TSILTbar::usage = "Tbar(x,y,z,s,qq)";
+TSILU::usage = "U(x,y,z,u,s,qq)";
 
 (* output parameters *)
 { Mxyzuv,
@@ -63,6 +64,8 @@ TSILInitialize[libName_String] := (
           LibraryFunctionLoad[libName, "TSILT", LinkObject, LinkObject];
        TSILTbarLL =
           LibraryFunctionLoad[libName, "TSILTbar", LinkObject, LinkObject];
+       TSILULL =
+          LibraryFunctionLoad[libName, "TSILU", LinkObject, LinkObject];
     );
 
 TSILEvaluateLoopFunctions[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ, qq_?NumericQ] :=
@@ -85,5 +88,7 @@ TSILS[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILS
 TSILT[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILTLL[{x, y, z, s, qq}];
 
 TSILTbar[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILTbarLL[{x, y, z, s, qq}];
+
+TSILU[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILULL[{x, y, z, u, s, qq}];
 
 End[];
