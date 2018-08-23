@@ -7,8 +7,8 @@
 
 #include <complex>
 #include <iostream>
-#include <string>
 #include <sstream>
+#include <string>
 #include <vector>
 
 #include <mathlink.h>
@@ -201,19 +201,9 @@ std::vector<TSIL_REAL> read_list(MLINK link)
 /******************************************************************/
 
 struct TSIL_Mma_Data {
-   TSIL_DATA data;
+   TSIL_DATA data{};
    TSIL_COMPLEXCPP Ax{}, Ay{}, Az{}, Au{}, Av{};
    TSIL_COMPLEXCPP Ixyv{}, Izuv{};
-   // TSIL_COMPLEXCPP Ap{};
-   // TSIL_COMPLEXCPP Aeps{};
-   // TSIL_COMPLEXCPP B{};
-   // TSIL_COMPLEXCPP Bp{};
-   // TSIL_COMPLEXCPP dBds{};
-   // TSIL_COMPLEXCPP Beps{};
-   // TSIL_COMPLEXCPP I2p{};
-   // TSIL_COMPLEXCPP I2p2{};
-   // TSIL_COMPLEXCPP I2pp{};
-   // TSIL_COMPLEXCPP I2p3{};
 };
 
 /******************************************************************/
@@ -237,7 +227,7 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
          " parameters have been read.");
    }
 
-   TSIL_Mma_Data data;
+   TSIL_Mma_Data data{};
 
    TSIL_SetParameters(&data.data, x, y, z, u, v, qq);
    TSIL_Evaluate(&data.data, s);
@@ -250,17 +240,6 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
 
    data.Ixyv = TSIL_I2(x, y, v, qq);
    data.Izuv = TSIL_I2(z, u, v, qq);
-
-   // data.Ap = TSIL_Ap(x, qq);
-   // data.Aeps = TSIL_Aeps(x, qq);
-   // data.B = TSIL_B(x, y, s, qq);
-   // data.Bp = TSIL_Bp(x, y, s, qq);
-   // data.dBds = TSIL_dBds(x, y, s, qq);
-   // data.Beps = TSIL_Beps(x, y, s, qq);
-   // data.I2p = TSIL_I2p(x, y, z, qq);
-   // data.I2p2 = TSIL_I2p2(x, y, z, qq);
-   // data.I2pp = TSIL_I2pp(x, y, z, qq);
-   // data.I2p3 = TSIL_I2p3(x, y, z, qq);
 
    return data;
 }
@@ -358,7 +337,7 @@ DLLEXPORT int TSILEvaluate(
       return LIBRARY_TYPE_ERROR;
 
    try {
-      TSIL_Mma_Data data;
+      TSIL_Mma_Data data{};
 
       {
          Redirect_output rd(link);
@@ -795,7 +774,7 @@ DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
             Mcpp = c2cpp(M);
          } else {
             const TSIL_REAL qq = 1; // M is independent of qq
-            TSIL_DATA data;
+            TSIL_DATA data{};
             TSIL_SetParameters(&data, x, y, z, u, v, qq);
             TSIL_Evaluate(&data, s);
             Mcpp = c2cpp(TSIL_GetFunction(&data, "M"));
@@ -841,7 +820,7 @@ DLLEXPORT int TSILS(WolframLibraryData /* libData */, MLINK link)
             Scpp = c2cpp(S);
          } else {
             const TSIL_REAL d = 1;
-            TSIL_DATA data;
+            TSIL_DATA data{};
             TSIL_SetParameters(&data, d, y, z, d, x, qq);
             TSIL_Evaluate(&data, s);
             Scpp = c2cpp(TSIL_GetFunction(&data, "Svyz"));
@@ -887,7 +866,7 @@ DLLEXPORT int TSILT(WolframLibraryData /* libData */, MLINK link)
             Tcpp = c2cpp(T);
          } else {
             const TSIL_REAL d = 1;
-            TSIL_DATA data;
+            TSIL_DATA data{};
             TSIL_SetParameters(&data, d, y, z, d, x, qq);
             TSIL_Evaluate(&data, s);
             Tcpp = c2cpp(TSIL_GetFunction(&data, "Tvyz"));
@@ -933,7 +912,7 @@ DLLEXPORT int TSILTbar(WolframLibraryData /* libData */, MLINK link)
             Tbarcpp = c2cpp(Tbar);
          } else {
             const TSIL_REAL d = 1;
-            TSIL_DATA data;
+            TSIL_DATA data{};
             TSIL_SetParameters(&data, d, y, z, d, x, qq);
             TSIL_Evaluate(&data, s);
             Tbarcpp = c2cpp(TSIL_GetFunction(&data, "TBARvyz"));
@@ -980,7 +959,7 @@ DLLEXPORT int TSILU(WolframLibraryData /* libData */, MLINK link)
             Ucpp = c2cpp(U);
          } else {
             const TSIL_REAL d = 1;
-            TSIL_DATA data;
+            TSIL_DATA data{};
             TSIL_SetParameters(&data, y, z, x, d, u, qq);
             TSIL_Evaluate(&data, s);
             Ucpp = c2cpp(TSIL_GetFunction(&data, "Uzxyv"));
@@ -1027,7 +1006,7 @@ DLLEXPORT int TSILV(WolframLibraryData /* libData */, MLINK link)
             Vcpp = c2cpp(V);
          } else {
             const TSIL_REAL d = 1;
-            TSIL_DATA data;
+            TSIL_DATA data{};
             TSIL_SetParameters(&data, y, z, x, d, u, qq);
             TSIL_Evaluate(&data, s);
             Vcpp = c2cpp(TSIL_GetFunction(&data, "Vzxyv"));
