@@ -49,6 +49,14 @@ sym = {
     Ax, Ay, Az, Au, Av
 };
 
+x  = 1;
+y  = 2;
+z  = 3;
+u  = 4;
+v  = 5;
+s  = 10;
+qq = 1;
+
 (* obtained by ./tsil 1 2 3 4 5 10 1 *)
 results = {
     Mxyzuv   ->  0.7183353535335331 +  0.3901621999727627 I,
@@ -95,29 +103,29 @@ results = {
 
 PrintHeadline["Testing TSILEvaluateLoopFunctions"];
 
-TestClose[sym /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
+TestClose[sym /. TSILEvaluateLoopFunctions[x, y, z, u, v, s, qq],
           sym /. results];
 
 PrintHeadline["Testing TSILA"];
 
 TestClose[Ax /. results,
-          TSILA[1, 1]];
+          TSILA[x, qq]];
 
 PrintHeadline["Testing TSILB"];
 
 TestClose[Bxz /. results,
-          TSILB[1, 3, 10, 1]];
+          TSILB[x, z, s, qq]];
 
 TestClose[Byu /. results,
-          TSILB[2, 4, 10, 1]];
+          TSILB[y, u, s, qq]];
 
 PrintHeadline["Testing TSILI"];
 
 TestClose[Ixyv /. results,
-          TSILI[1, 2, 5, 1]];
+          TSILI[x, y, v, qq]];
 
 TestClose[Izuv /. results,
-          TSILI[3, 4, 5, 1]];
+          TSILI[z, u, v, qq]];
 
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
