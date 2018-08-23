@@ -12,7 +12,8 @@ Arguments:
 
 ";
 
-TSILEvaluateLoopFunctions::usage = "Parameters: x, y, z, u, v, s, qq";
+TSILEvaluateLoopFunctions::usage = "Evaluate all integral functions. 
+Parameters: x, y, z, u, v, s, qq";
 TSILA::usage = "A(x,Q^2)";
 TSILAp::usage = "Ap(x,Q^2)";
 TSILAeps::usage = "Aeps(x,Q^2)";
