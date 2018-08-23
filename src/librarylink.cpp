@@ -56,8 +56,9 @@ template <class T>
 void MLPut(MLINK link, const std::vector<T>& v)
 {
    MLPutFunction(link, "List", v.size());
-   for (std::size_t i = 0; i < v.size(); i++)
+   for (std::size_t i = 0; i < v.size(); i++) {
       MLPut(link, v[i]);
+   }
 }
 
 /********************* put rules to types *********************/
@@ -84,7 +85,7 @@ double MLRead(MLINK link)
 {
    double val = 0.;
 
-   if (!MLGetReal64(link, &val)) {
+   if (MLGetReal64(link, &val) == 0) {
       throw std::runtime_error("Cannot read value from parameter list!");
    }
 
@@ -96,7 +97,7 @@ long double MLRead(MLINK link)
 {
    long double val = 0.;
 
-   if (!MLGetReal128(link, &val)) {
+   if (MLGetReal128(link, &val) == 0) {
       throw std::runtime_error("Cannot read value from parameter list!");
    }
 
@@ -120,7 +121,6 @@ class Redirect_output {
 public:
    explicit Redirect_output(MLINK link_)
       : link(link_)
-      , buffer()
       , old_cout(std::cout.rdbuf(buffer.rdbuf()))
       , old_cerr(std::cerr.rdbuf(buffer.rdbuf()))
       {}
@@ -151,8 +151,9 @@ long number_of_args(MLINK link, const std::string& head)
 {
    long argc;
 
-   if (!MLCheckFunction(link, head.c_str(), &argc))
+   if (MLCheckFunction(link, head.c_str(), &argc) == 0) {
       std::cerr << "Error: argument is not a " << head << std::endl;
+   }
 
    return argc;
 }
@@ -180,7 +181,7 @@ std::vector<TSIL_REAL> read_list(MLINK link)
 {
    int N = 0;
 
-   if (!MLTestHead(link, "List", &N)) {
+   if (MLTestHead(link, "List", &N) == 0) {
       throw std::runtime_error("TSILEvaluate expects a list"
                                " as the only argument!");
    }
@@ -191,7 +192,7 @@ std::vector<TSIL_REAL> read_list(MLINK link)
       vec[i] = MLRead<TSIL_REAL>(link);
    }
 
-   if (!MLNewPacket(link)) {
+   if (MLNewPacket(link) == 0) {
       throw std::runtime_error("Cannot create new packet!");
    }
 
@@ -333,8 +334,9 @@ extern "C" {
 DLLEXPORT int TSILEvaluate(
    WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILEvaluate"))
+   if (!check_number_of_args(link, 1, "TSILEvaluate")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       TSIL_Mma_Data data{};
@@ -360,8 +362,9 @@ DLLEXPORT int TSILEvaluate(
 
 DLLEXPORT int TSILA(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILA"))
+   if (!check_number_of_args(link, 1, "TSILA")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -391,8 +394,9 @@ DLLEXPORT int TSILA(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILAp(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILAp"))
+   if (!check_number_of_args(link, 1, "TSILAp")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -422,8 +426,9 @@ DLLEXPORT int TSILAp(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILAeps(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILAeps"))
+   if (!check_number_of_args(link, 1, "TSILAeps")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -453,8 +458,9 @@ DLLEXPORT int TSILAeps(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILB(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILB"))
+   if (!check_number_of_args(link, 1, "TSILB")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -486,8 +492,9 @@ DLLEXPORT int TSILB(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILBp(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILBp"))
+   if (!check_number_of_args(link, 1, "TSILBp")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -519,8 +526,9 @@ DLLEXPORT int TSILBp(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILdBds(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILdBds"))
+   if (!check_number_of_args(link, 1, "TSILdBds")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -552,8 +560,9 @@ DLLEXPORT int TSILdBds(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILBeps(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILBeps"))
+   if (!check_number_of_args(link, 1, "TSILBeps")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -585,8 +594,9 @@ DLLEXPORT int TSILBeps(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILI(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILI"))
+   if (!check_number_of_args(link, 1, "TSILI")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -618,8 +628,9 @@ DLLEXPORT int TSILI(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILIp(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILIp"))
+   if (!check_number_of_args(link, 1, "TSILIp")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -651,8 +662,9 @@ DLLEXPORT int TSILIp(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILIp2(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILIp2"))
+   if (!check_number_of_args(link, 1, "TSILIp2")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -684,8 +696,9 @@ DLLEXPORT int TSILIp2(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILIpp(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILIpp"))
+   if (!check_number_of_args(link, 1, "TSILIpp")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -717,8 +730,9 @@ DLLEXPORT int TSILIpp(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILIp3(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILIp3"))
+   if (!check_number_of_args(link, 1, "TSILIp3")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -750,8 +764,9 @@ DLLEXPORT int TSILIp3(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILM"))
+   if (!check_number_of_args(link, 1, "TSILM")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -770,7 +785,7 @@ DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
          TSIL_COMPLEX M;
          const auto is_analytic = TSIL_Manalytic(x, y, z, u, v, s, &M);
 
-         if (is_analytic) {
+         if (is_analytic != 0) {
             Mcpp = c2cpp(M);
          } else {
             const TSIL_REAL qq = 1; // M is independent of qq
@@ -797,8 +812,9 @@ DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILS(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILS"))
+   if (!check_number_of_args(link, 1, "TSILS")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -816,7 +832,7 @@ DLLEXPORT int TSILS(WolframLibraryData /* libData */, MLINK link)
          TSIL_COMPLEX S;
          const auto is_analytic = TSIL_Sanalytic(x, y, z, s, qq, &S);
 
-         if (is_analytic) {
+         if (is_analytic != 0) {
             Scpp = c2cpp(S);
          } else {
             const TSIL_REAL d = 1;
@@ -843,8 +859,9 @@ DLLEXPORT int TSILS(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILT(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILT"))
+   if (!check_number_of_args(link, 1, "TSILT")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -862,7 +879,7 @@ DLLEXPORT int TSILT(WolframLibraryData /* libData */, MLINK link)
          TSIL_COMPLEX T;
          const auto is_analytic = TSIL_Tanalytic(x, y, z, s, qq, &T);
 
-         if (is_analytic) {
+         if (is_analytic != 0) {
             Tcpp = c2cpp(T);
          } else {
             const TSIL_REAL d = 1;
@@ -889,8 +906,9 @@ DLLEXPORT int TSILT(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILTbar(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILTbar"))
+   if (!check_number_of_args(link, 1, "TSILTbar")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -908,7 +926,7 @@ DLLEXPORT int TSILTbar(WolframLibraryData /* libData */, MLINK link)
          TSIL_COMPLEX Tbar;
          const auto is_analytic = TSIL_Tbaranalytic(x, y, z, s, qq, &Tbar);
 
-         if (is_analytic) {
+         if (is_analytic != 0) {
             Tbarcpp = c2cpp(Tbar);
          } else {
             const TSIL_REAL d = 1;
@@ -935,8 +953,9 @@ DLLEXPORT int TSILTbar(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILU(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILU"))
+   if (!check_number_of_args(link, 1, "TSILU")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -955,7 +974,7 @@ DLLEXPORT int TSILU(WolframLibraryData /* libData */, MLINK link)
          TSIL_COMPLEX U;
          const auto is_analytic = TSIL_Uanalytic(x, y, z, u, s, qq, &U);
 
-         if (is_analytic) {
+         if (is_analytic != 0) {
             Ucpp = c2cpp(U);
          } else {
             const TSIL_REAL d = 1;
@@ -982,8 +1001,9 @@ DLLEXPORT int TSILU(WolframLibraryData /* libData */, MLINK link)
 
 DLLEXPORT int TSILV(WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILV"))
+   if (!check_number_of_args(link, 1, "TSILV")) {
       return LIBRARY_TYPE_ERROR;
+   }
 
    try {
       const auto parsvec = read_list(link);
@@ -1002,7 +1022,7 @@ DLLEXPORT int TSILV(WolframLibraryData /* libData */, MLINK link)
          TSIL_COMPLEX V;
          const auto is_analytic = TSIL_Vanalytic(x, y, z, u, s, qq, &V);
 
-         if (is_analytic) {
+         if (is_analytic != 0) {
             Vcpp = c2cpp(V);
          } else {
             const TSIL_REAL d = 1;
