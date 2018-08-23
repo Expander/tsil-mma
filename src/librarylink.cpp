@@ -228,7 +228,7 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
          " parameters have been read.");
    }
 
-   TSIL_Mma_Data data{};
+   TSIL_Mma_Data data;
 
    TSIL_SetParameters(&data.data, x, y, z, u, v, qq);
    TSIL_Evaluate(&data.data, s);
@@ -339,7 +339,7 @@ DLLEXPORT int TSILEvaluate(
    }
 
    try {
-      TSIL_Mma_Data data{};
+      TSIL_Mma_Data data;
 
       {
          Redirect_output rd(link);
