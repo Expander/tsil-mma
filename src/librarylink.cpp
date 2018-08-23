@@ -789,7 +789,7 @@ DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
          Redirect_output rd(link);
 
          TSIL_COMPLEX M;
-         const bool is_analytic = TSIL_Manalytic(x, y, z, u, v, s, &M);
+         const auto is_analytic = TSIL_Manalytic(x, y, z, u, v, s, &M);
 
          if (is_analytic) {
             Mcpp = c2cpp(M);
@@ -835,7 +835,7 @@ DLLEXPORT int TSILS(WolframLibraryData /* libData */, MLINK link)
          Redirect_output rd(link);
 
          TSIL_COMPLEX S;
-         const bool is_analytic = TSIL_Sanalytic(x, y, z, s, qq, &S);
+         const auto is_analytic = TSIL_Sanalytic(x, y, z, s, qq, &S);
 
          if (is_analytic) {
             Scpp = c2cpp(S);
@@ -881,7 +881,7 @@ DLLEXPORT int TSILT(WolframLibraryData /* libData */, MLINK link)
          Redirect_output rd(link);
 
          TSIL_COMPLEX T;
-         const bool is_analytic = TSIL_Tanalytic(x, y, z, s, qq, &T);
+         const auto is_analytic = TSIL_Tanalytic(x, y, z, s, qq, &T);
 
          if (is_analytic) {
             Tcpp = c2cpp(T);
@@ -927,7 +927,7 @@ DLLEXPORT int TSILTbar(WolframLibraryData /* libData */, MLINK link)
          Redirect_output rd(link);
 
          TSIL_COMPLEX Tbar;
-         const bool is_analytic = TSIL_Tbaranalytic(x, y, z, s, qq, &Tbar);
+         const auto is_analytic = TSIL_Tbaranalytic(x, y, z, s, qq, &Tbar);
 
          if (is_analytic) {
             Tbarcpp = c2cpp(Tbar);
@@ -974,7 +974,7 @@ DLLEXPORT int TSILU(WolframLibraryData /* libData */, MLINK link)
          Redirect_output rd(link);
 
          TSIL_COMPLEX U;
-         const bool is_analytic = TSIL_Uanalytic(x, y, z, u, s, qq, &U);
+         const auto is_analytic = TSIL_Uanalytic(x, y, z, u, s, qq, &U);
 
          if (is_analytic) {
             Ucpp = c2cpp(U);
@@ -1021,7 +1021,7 @@ DLLEXPORT int TSILV(WolframLibraryData /* libData */, MLINK link)
          Redirect_output rd(link);
 
          TSIL_COMPLEX V;
-         const bool is_analytic = TSIL_Vanalytic(x, y, z, u, s, qq, &V);
+         const auto is_analytic = TSIL_Vanalytic(x, y, z, u, s, qq, &V);
 
          if (is_analytic) {
             Vcpp = c2cpp(V);
