@@ -316,17 +316,6 @@ void put_data(TSIL_Mma_Data& data, MLINK link)
    MLPutRuleToTSILFunction(Ixyv);
    MLPutRuleToTSILFunction(Izuv);
 
-   // MLPutRuleToTSILFunction(Ap);
-   // MLPutRuleToTSILFunction(Aeps);
-   // MLPutRuleToTSILFunction(B);
-   // MLPutRuleToTSILFunction(Bp);
-   // MLPutRuleToTSILFunction(dBds);
-   // MLPutRuleToTSILFunction(Beps);
-   // MLPutRuleToTSILFunction(I2p);
-   // MLPutRuleToTSILFunction(I2p2);
-   // MLPutRuleToTSILFunction(I2pp);
-   // MLPutRuleToTSILFunction(I2p3);
-
 #undef MLPutRuleToTSILFunction
 }
 
