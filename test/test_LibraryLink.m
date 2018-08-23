@@ -132,6 +132,14 @@ PrintHeadline["Testing TSILM"];
 TestClose[Mxyzuv /. results,
           TSILM[x, y, z, u, v, s]];
 
+PrintHeadline["Testing TSILS"];
+
+TestClose[Svyz /. results,
+          TSILS[v, y, z, s, qq]];
+
+TestClose[Suxv /. results,
+          TSILS[u, x, v, s, qq]];
+
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
 

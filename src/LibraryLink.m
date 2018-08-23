@@ -19,6 +19,7 @@ TSILAeps::usage = "Aeps(x,Q^2)";
 TSILB::usage = "B(x,y,s,Q^2)";
 TSILI::usage = "I(x,y,z,Q^2)";
 TSILM::usage = "M(x,y,z,u,v,s)";
+TSILS::usage = "S(x,y,z,s,qq)";
 
 (* output parameters *)
 { Mxyzuv,
@@ -54,6 +55,8 @@ TSILInitialize[libName_String] := (
           LibraryFunctionLoad[libName, "TSILI", LinkObject, LinkObject];
        TSILMLL =
           LibraryFunctionLoad[libName, "TSILM", LinkObject, LinkObject];
+       TSILSLL =
+          LibraryFunctionLoad[libName, "TSILS", LinkObject, LinkObject];
     );
 
 TSILEvaluateLoopFunctions[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ, qq_?NumericQ] :=
@@ -70,5 +73,7 @@ TSILB[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBLL[{x, y, s, 
 TSILI[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILILL[{x, y, z, qq}];
 
 TSILM[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ] := TSILMLL[{x, y, z, u, v, s}];
+
+TSILS[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILSLL[{x, y, z, s, qq}];
 
 End[];
