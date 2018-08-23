@@ -140,6 +140,26 @@ TestClose[Svyz /. results,
 TestClose[Suxv /. results,
           TSILS[u, x, v, s, qq]];
 
+PrintHeadline["Testing TSILT"];
+
+TestClose[Tvyz /. results,
+          TSILT[v, y, z, s, qq]];
+
+TestClose[Tuxv /. results,
+          TSILT[u, x, v, s, qq]];
+
+TestClose[Tyzv /. results,
+          TSILT[y, z, v, s, qq]];
+
+TestClose[Txuv /. results,
+          TSILT[x, u, v, s, qq]];
+
+TestClose[Tzyv /. results,
+          TSILT[z, y, v, s, qq]];
+
+TestClose[Tvxu /. results,
+          TSILT[v, x, u, s, qq]];
+
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
 
