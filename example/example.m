@@ -14,4 +14,6 @@ qq = 1;
 
 Print[TSILEvaluateLoopFunctions[x, y, z, u, v, qq, s]];
 
-Print["A(x,qq) = ", TSILA[x, qq]];
+Print["A(x,qq)    = ", TSILA[x, qq]];
+Print["Ap(x,qq)   = ", TSILAp[x, qq]];
+Print["Aeps(x,qq) = ", TSILAeps[x, qq]];
