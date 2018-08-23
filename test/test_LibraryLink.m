@@ -103,9 +103,9 @@ results = {
     Av       ->  3.0471895621705021 +  0.0000000000000000 I
 };
 
-PrintHeadline["Testing TSILEvaluateLoopFunctions"];
+PrintHeadline["Testing TSILEvaluate"];
 
-TestClose[sym /. TSILEvaluateLoopFunctions[x, y, z, u, v, s, qq],
+TestClose[sym /. TSILEvaluate[x, y, z, u, v, s, qq],
           sym /. results];
 
 PrintHeadline["Testing TSILA"];

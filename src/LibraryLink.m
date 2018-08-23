@@ -1,6 +1,6 @@
 TSILInitialize::usage = "Loads the TSIL LibraryLink.  After
- TSILInitialize[] has been called, the function
- TSILEvaluateLoopFunctions[] is available.
+ TSILInitialize[] has been called, the integral functions are
+ available.
 
 Usage:
 
@@ -9,10 +9,9 @@ Usage:
 Arguments:
 
  - libName - The path to the TSIL LibraryLink, 'LibraryLink.so'
-
 ";
 
-TSILEvaluateLoopFunctions::usage = "Evaluate all integral functions. 
+TSILEvaluate::usage = "Evaluate all integral functions. 
 Parameters: x, y, z, u, v, s, qq";
 TSILA::usage = "A(x,Q^2)";
 TSILAp::usage = "Ap(x,Q^2)";
@@ -53,8 +52,8 @@ TSILInfoMessage[s_]  := Message[TSIL::info, s];
 Begin["`Private`"];
 
 TSILInitialize[libName_String] := (
-       TSILEvaluateLoopFunctionsLL =
-          LibraryFunctionLoad[libName, "TSILEvaluateLoopFunctions", LinkObject, LinkObject];
+       TSILEvaluateLL =
+          LibraryFunctionLoad[libName, "TSILEvaluate", LinkObject, LinkObject];
        TSILALL =
           LibraryFunctionLoad[libName, "TSILA", LinkObject, LinkObject];
        TSILApLL =
@@ -93,8 +92,8 @@ TSILInitialize[libName_String] := (
           LibraryFunctionLoad[libName, "TSILV", LinkObject, LinkObject];
     );
 
-TSILEvaluateLoopFunctions[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ, qq_?NumericQ] :=
-    TSILEvaluateLoopFunctionsLL[{x, y, z, u, v, s, qq}];
+TSILEvaluate[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ, qq_?NumericQ] :=
+    TSILEvaluateLL[{x, y, z, u, v, s, qq}];
 
 TSILA[x_?NumericQ, qq_?NumericQ] := TSILALL[{x, qq}];
 

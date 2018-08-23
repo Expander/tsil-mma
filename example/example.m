@@ -12,7 +12,7 @@ v  = 5;
 s  = 10;
 qq = 1;
 
-Print[TSILEvaluateLoopFunctions[x, y, z, u, v, qq, s]];
+Print[TSILEvaluate[x, y, z, u, v, qq, s]];
 
 Print["A(x,qq)          = ", TSILA[x, qq]];
 Print["Ap(x,qq)         = ", TSILAp[x, qq]];

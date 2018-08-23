@@ -181,7 +181,7 @@ std::vector<TSIL_REAL> read_list(MLINK link)
    int N = 0;
 
    if (!MLTestHead(link, "List", &N)) {
-      throw std::runtime_error("TSILEvaluateLoopFunctions expects a list"
+      throw std::runtime_error("TSILEvaluate expects a list"
                                " as the only argument!");
    }
 
@@ -351,10 +351,10 @@ extern "C" {
 
 /******************************************************************/
 
-DLLEXPORT int TSILEvaluateLoopFunctions(
+DLLEXPORT int TSILEvaluate(
    WolframLibraryData /* libData */, MLINK link)
 {
-   if (!check_number_of_args(link, 1, "TSILEvaluateLoopFunctions"))
+   if (!check_number_of_args(link, 1, "TSILEvaluate"))
       return LIBRARY_TYPE_ERROR;
 
    try {
