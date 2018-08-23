@@ -1,3 +1,5 @@
+configure_file(config.h.in config.h)
+
 if(Mathematica_FOUND)
   set(LL_SRC librarylink.cpp)
   set(LL_LIB LibraryLink)
@@ -6,7 +8,7 @@ if(Mathematica_FOUND)
 
   target_link_libraries(${LL_LIB} PRIVATE TSIL::TSIL ${Mathematica_MathLink_LIBRARIES})
   set_target_properties(${LL_LIB} PROPERTIES LINK_FLAGS "${Mathematica_MathLink_LINKER_FLAGS}")
-  target_include_directories(${LL_LIB} PRIVATE TSIL::TSIL ${Mathematica_INCLUDE_DIR} ${Mathematica_MathLink_INCLUDE_DIR})
+  target_include_directories(${LL_LIB} PRIVATE TSIL::TSIL ${Mathematica_INCLUDE_DIR} ${Mathematica_MathLink_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
   Mathematica_ABSOLUTIZE_LIBRARY_DEPENDENCIES(${LL_LIB})
 
