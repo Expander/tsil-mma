@@ -263,39 +263,39 @@ void put_data(TSIL_Mma_Data& data, MLINK link)
    MLPutFunction(link, "List", len);
    MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, "M")), "Mxyzuv");
 
-   for (int i = 0; i < NUM_U_FUNCS; i++) {
-      for (int j = 0; j < NUM_U_PERMS; j++) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, uname[i][j])), uname[i][j]);
+   for (const auto& func : uname) {
+      for (int p = 0; p < NUM_U_PERMS; p++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, func[p])), func[p]);
       }
    }
 
-   for (int i = 0; i < NUM_T_FUNCS; i++) {
-      for (int j = 0; j < NUM_T_PERMS; j++) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, tname[i][j])), tname[i][j]);
+   for (const auto& func : tname) {
+      for (int p = 0; p < NUM_T_PERMS; p++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, func[p])), func[p]);
       }
    }
 
-   for (int i = 0; i < NUM_T_FUNCS; i++) {
-      for (int j = 0; j < NUM_T_PERMS; j++) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, tbarname[i][j])), tbarname[i][j]);
+   for (const auto& func : tbarname) {
+      for (int p = 0; p < NUM_T_PERMS; p++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, func[p])), func[p]);
       }
    }
 
-   for (int i = 0; i < NUM_S_FUNCS; i++) {
-      for (int j = 0; j < NUM_S_PERMS; j++) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, sname[i][j])), sname[i][j]);
+   for (const auto& func : sname) {
+      for (int p = 0; p < NUM_S_PERMS; p++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, func[p])), func[p]);
       }
    }
 
-   for (int i = 0; i < NUM_B_FUNCS; i++) {
-      for (int j = 0; j < NUM_B_PERMS; j++) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, bname[i][j])), bname[i][j]);
+   for (const auto& func : bname) {
+      for (int p = 0; p < NUM_B_PERMS; p++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, func[p])), func[p]);
       }
    }
 
-   for (int i = 0; i < NUM_V_FUNCS; i++) {
-      for (int j = 0; j < NUM_V_PERMS; j++) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, vname[i][j])), vname[i][j]);
+   for (const auto& func : vname) {
+      for (int p = 0; p < NUM_V_PERMS; p++) {
+         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, func[p])), func[p]);
       }
    }
 
