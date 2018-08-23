@@ -175,6 +175,10 @@ TestClose[Svyz /. results,
 TestClose[Suxv /. results,
           TSILS[u, x, v, s, qq]];
 
+(* Eq.(2.21) *)
+TestClose[TSILI[x, y, z, qq],
+          TSILS[x, y, z, 0, qq]];
+
 PrintHeadline["Testing TSILT"];
 
 TestClose[Tvyz /. results,
@@ -195,6 +199,11 @@ TestClose[Tzyv /. results,
 TestClose[Tvxu /. results,
           TSILT[v, x, u, s, qq]];
 
+(* Eq.(2.22) *)
+TestClose[TSILT[x, y, z, s, qq],
+          -ND[TSILS[xx, y, z, s, qq], xx, x],
+          1*^-9];
+
 PrintHeadline["Testing TSILTbar"];
 
 TestClose[TBARvyz /. results,
@@ -214,6 +223,10 @@ TestClose[TBARzyv /. results,
 
 TestClose[TBARvxu /. results,
           TSILTbar[v, x, u, s, qq]];
+
+(* Eq.(2.41) *)
+TestClose[TSILTbar[x, y, z, s, qq],
+          TSILT[x, y, z, s, qq] + B[x, y, s, qq] Log[x/qq]];
 
 PrintHeadline["Testing TSILU"];
 
@@ -246,6 +259,11 @@ TestClose[Vxzuv /. results,
 
 TestClose[Vyuzv /. results,
           TSILV[y, u, z, v, s, qq], eps];
+
+(* Eq.(2.26) *)
+TestClose[TSILV[x, y, z, u, s, qq],
+          -ND[TSILU[x, yy, z, u, s, qq], yy, y],
+          1*^-10];
 
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
