@@ -472,6 +472,39 @@ DLLEXPORT int TSILAeps(WolframLibraryData /* libData */, MLINK link)
 
 /******************************************************************/
 
+DLLEXPORT int TSILB(WolframLibraryData /* libData */, MLINK link)
+{
+   if (!check_number_of_args(link, 1, "TSILA"))
+      return LIBRARY_TYPE_ERROR;
+
+   try {
+      const auto parsvec = read_list(link);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL s  = parsvec.at(2);
+      const TSIL_REAL qq = parsvec.at(3);
+
+      TSIL_COMPLEXCPP B;
+
+      {
+         Redirect_output rd(link);
+         B = c2cpp(TSIL_B(x, y, s, qq));
+      }
+
+      MLPut(link, B);
+   } catch (const std::exception& e) {
+      put_message(link, "TSILErrorMessage", e.what());
+      MLPutSymbol(link, "$Failed");
+   } catch (...) {
+      put_message(link, "TSILErrorMessage", "An unknown exception has been thrown.");
+      MLPutSymbol(link, "$Failed");
+   }
+
+   return LIBRARY_NO_ERROR;
+}
+
+/******************************************************************/
+
 DLLEXPORT mint WolframLibrary_getVersion()
 {
    return WolframLibraryVersion;

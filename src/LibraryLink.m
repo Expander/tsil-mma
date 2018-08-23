@@ -16,6 +16,7 @@ TSILEvaluateLoopFunctions::usage = "Parameters: x, y, z, u, v, s, qq";
 TSILA::usage = "A(x,Q^2)";
 TSILAp::usage = "Ap(x,Q^2)";
 TSILAeps::usage = "Aeps(x,Q^2)";
+TSILB::usage = "B(x,y,s,Q^2)";
 
 (* output parameters *)
 { Mxyzuv,
@@ -45,6 +46,8 @@ TSILInitialize[libName_String] := (
           LibraryFunctionLoad[libName, "TSILAp", LinkObject, LinkObject];
        TSILAepsLL =
           LibraryFunctionLoad[libName, "TSILAeps", LinkObject, LinkObject];
+       TSILBLL =
+          LibraryFunctionLoad[libName, "TSILB", LinkObject, LinkObject];
     );
 
 TSILEvaluateLoopFunctions[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ, qq_?NumericQ] :=
@@ -55,5 +58,7 @@ TSILA[x_?NumericQ, qq_?NumericQ] := TSILALL[{x, qq}];
 TSILAp[x_?NumericQ, qq_?NumericQ] := TSILApLL[{x, qq}];
 
 TSILAeps[x_?NumericQ, qq_?NumericQ] := TSILAepsLL[{x, qq}];
+
+TSILB[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBLL[{x, y, s, qq}];
 
 End[];

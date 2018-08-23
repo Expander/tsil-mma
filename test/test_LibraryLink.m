@@ -98,6 +98,16 @@ Print[];
 TestClose[Ax /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
           TSILA[1, 1]];
 
+Print[];
+Print["Testing TSILB ..."];
+Print[];
+
+TestClose[Bxz /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
+          TSILB[1, 3, 10, 1]];
+
+TestClose[Byu /. TSILEvaluateLoopFunctions[1, 2, 3, 4, 5, 10, 1],
+          TSILB[2, 4, 10, 1]];
+
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
 
