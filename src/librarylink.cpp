@@ -125,6 +125,11 @@ public:
       , old_cerr(std::cerr.rdbuf(buffer.rdbuf()))
       {}
 
+   Redirect_output(const Redirect_output&) = delete;
+   Redirect_output(Redirect_output&&) = delete;
+   Redirect_output& operator=(const Redirect_output&) = delete;
+   Redirect_output& operator=(Redirect_output&&) = delete;
+
    ~Redirect_output() {
       std::cout.rdbuf(old_cout);
       std::cerr.rdbuf(old_cerr);
@@ -221,7 +226,7 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
    const TSIL_REAL s  = parsvec.at(c++);
    const TSIL_REAL qq = parsvec.at(c++);
 
-   if (c != parsvec.size()) {
+   if (static_cast<std::size_t>(c) != parsvec.size()) {
       throw std::runtime_error(
          "Bug: Expecting to read " + std::to_string(parsvec.size()) +
          " input parameters from input vector, but only " + std::to_string(c) +
