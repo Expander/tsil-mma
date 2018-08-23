@@ -31,3 +31,4 @@ Print["S(x,y,z,s,qq)    = ", TSILS[x, y, z, s, qq]];
 Print["T(x,y,z,s,qq)    = ", TSILT[x, y, z, s, qq]];
 Print["Tbar(x,y,z,s,qq) = ", TSILTbar[x, y, z, s, qq]];
 Print["U(x,y,z,u,s,qq)  = ", TSILU[x, y, z, u, s, qq]];
+Print["V(x,y,z,u,s,qq)  = ", TSILV[x, y, z, u, s, qq]];

@@ -231,6 +231,22 @@ TestClose[Uxzuv /. results,
 TestClose[Uyuzv /. results,
           TSILU[y, u, z, v, s, qq], eps];
 
+PrintHeadline["Testing TSILV"];
+
+eps = 1*^-14;
+
+TestClose[Vzxyv /. results,
+          TSILV[z, x, y, v, s, qq], eps];
+
+TestClose[Vuyxv /. results,
+          TSILV[u, y, x, v, s, qq], eps];
+
+TestClose[Vxzuv /. results,
+          TSILV[x, z, u, v, s, qq], eps];
+
+TestClose[Vyuzv /. results,
+          TSILV[y, u, z, v, s, qq], eps];
+
 Print["Number of passed tests: ", passedTests];
 Print["Number of failed tests: ", failedTests];
 
