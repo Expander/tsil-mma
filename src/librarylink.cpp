@@ -235,8 +235,8 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
 
    TSIL_Mma_Data data;
 
-   TSIL_SetParameters(&data.data, x, y, z, u, v, qq);
-   TSIL_Evaluate(&data.data, s);
+   TSIL_SetParameters_(&data.data, x, y, z, u, v, qq);
+   TSIL_Evaluate_(&data.data, s);
 
    data.Ax = TSIL_A(x, qq);
    data.Ay = TSIL_A(y, qq);
@@ -266,41 +266,41 @@ void put_data(TSIL_Mma_Data& data, MLINK link)
       ;
 
    MLPutFunction(link, "List", len);
-   MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, "M")), "Mxyzuv");
+   MLPutRuleTo(link, TSIL_GetFunction_(&data.data, "M"), "Mxyzuv");
 
    for (const auto& func : uname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, p)), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
       }
    }
 
    for (const auto& func : tname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, p)), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
       }
    }
 
    for (const auto& func : tbarname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, p)), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
       }
    }
 
    for (const auto& func : sname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, p)), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
       }
    }
 
    for (const auto& func : bname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, p)), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
       }
    }
 
    for (const auto& func : vname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, c2cpp(TSIL_GetFunction(&data.data, p)), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
       }
    }
 
@@ -369,7 +369,7 @@ DLLEXPORT int TSILA(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         A = c2cpp(TSIL_A(x, qq));
+         A = TSIL_A_(x, qq);
       }
 
       MLPut(link, A);
@@ -401,7 +401,7 @@ DLLEXPORT int TSILAp(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         Ap = c2cpp(TSIL_Ap(x, qq));
+         Ap = TSIL_Ap_(x, qq);
       }
 
       MLPut(link, Ap);
@@ -433,7 +433,7 @@ DLLEXPORT int TSILAeps(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         Aeps = c2cpp(TSIL_Aeps(x, qq));
+         Aeps = TSIL_Aeps_(x, qq);
       }
 
       MLPut(link, Aeps);
@@ -467,7 +467,7 @@ DLLEXPORT int TSILB(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         B = c2cpp(TSIL_B(x, y, s, qq));
+         B = TSIL_B_(x, y, s, qq);
       }
 
       MLPut(link, B);
@@ -501,7 +501,7 @@ DLLEXPORT int TSILBp(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         Bp = c2cpp(TSIL_Bp(x, y, s, qq));
+         Bp = TSIL_Bp_(x, y, s, qq);
       }
 
       MLPut(link, Bp);
@@ -535,7 +535,7 @@ DLLEXPORT int TSILdBds(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         dBds = c2cpp(TSIL_dBds(x, y, s, qq));
+         dBds = TSIL_dBds_(x, y, s, qq);
       }
 
       MLPut(link, dBds);
@@ -569,7 +569,7 @@ DLLEXPORT int TSILBeps(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         Beps = c2cpp(TSIL_Beps(x, y, s, qq));
+         Beps = TSIL_Beps_(x, y, s, qq);
       }
 
       MLPut(link, Beps);
@@ -603,7 +603,7 @@ DLLEXPORT int TSILI(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         I2 = c2cpp(TSIL_I2(x, y, z, qq));
+         I2 = TSIL_I2_(x, y, z, qq);
       }
 
       MLPut(link, I2);
@@ -637,7 +637,7 @@ DLLEXPORT int TSILIp(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         I2p = c2cpp(TSIL_I2p(x, y, z, qq));
+         I2p = TSIL_I2p_(x, y, z, qq);
       }
 
       MLPut(link, I2p);
@@ -671,7 +671,7 @@ DLLEXPORT int TSILIp2(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         I2p2 = c2cpp(TSIL_I2p2(x, y, z, qq));
+         I2p2 = TSIL_I2p2_(x, y, z, qq);
       }
 
       MLPut(link, I2p2);
@@ -705,7 +705,7 @@ DLLEXPORT int TSILIpp(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         I2pp = c2cpp(TSIL_I2pp(x, y, z, qq));
+         I2pp = TSIL_I2pp_(x, y, z, qq);
       }
 
       MLPut(link, I2pp);
@@ -739,7 +739,7 @@ DLLEXPORT int TSILIp3(WolframLibraryData /* libData */, MLINK link)
 
       {
          Redirect_output rd(link);
-         I2p3 = c2cpp(TSIL_I2p3(x, y, z, qq));
+         I2p3 = TSIL_I2p3_(x, y, z, qq);
       }
 
       MLPut(link, I2p3);
@@ -771,26 +771,23 @@ DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL v = parsvec.at(4);
       const TSIL_REAL s = parsvec.at(5);
 
-      TSIL_COMPLEXCPP Mcpp;
+      TSIL_COMPLEXCPP M;
 
       {
          Redirect_output rd(link);
 
-         TSIL_COMPLEX M;
-         const auto is_analytic = TSIL_Manalytic(x, y, z, u, v, s, &M);
+         const auto is_analytic = TSIL_Manalytic_(x, y, z, u, v, s, &M);
 
-         if (is_analytic != 0) {
-            Mcpp = c2cpp(M);
-         } else {
+         if (is_analytic == 0) {
             const TSIL_REAL qq = 1; // M is independent of qq
             TSIL_DATA data{};
-            TSIL_SetParameters(&data, x, y, z, u, v, qq);
-            TSIL_Evaluate(&data, s);
-            Mcpp = c2cpp(TSIL_GetFunction(&data, "M"));
+            TSIL_SetParameters_(&data, x, y, z, u, v, qq);
+            TSIL_Evaluate_(&data, s);
+            M = TSIL_GetFunction_(&data, "M");
          }
       }
 
-      MLPut(link, Mcpp);
+      MLPut(link, M);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");
@@ -818,26 +815,23 @@ DLLEXPORT int TSILS(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL s  = parsvec.at(3);
       const TSIL_REAL qq = parsvec.at(4);
 
-      TSIL_COMPLEXCPP Scpp;
+      TSIL_COMPLEXCPP S;
 
       {
          Redirect_output rd(link);
 
-         TSIL_COMPLEX S;
-         const auto is_analytic = TSIL_Sanalytic(x, y, z, s, qq, &S);
+         const auto is_analytic = TSIL_Sanalytic_(x, y, z, s, qq, &S);
 
-         if (is_analytic != 0) {
-            Scpp = c2cpp(S);
-         } else {
+         if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
-            TSIL_SetParameters(&data, d, y, z, d, x, qq);
-            TSIL_Evaluate(&data, s);
-            Scpp = c2cpp(TSIL_GetFunction(&data, "Svyz"));
+            TSIL_SetParameters_(&data, d, y, z, d, x, qq);
+            TSIL_Evaluate_(&data, s);
+            S = TSIL_GetFunction_(&data, "Svyz");
          }
       }
 
-      MLPut(link, Scpp);
+      MLPut(link, S);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");
@@ -865,26 +859,23 @@ DLLEXPORT int TSILT(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL s  = parsvec.at(3);
       const TSIL_REAL qq = parsvec.at(4);
 
-      TSIL_COMPLEXCPP Tcpp;
+      TSIL_COMPLEXCPP T;
 
       {
          Redirect_output rd(link);
 
-         TSIL_COMPLEX T;
-         const auto is_analytic = TSIL_Tanalytic(x, y, z, s, qq, &T);
+         const auto is_analytic = TSIL_Tanalytic_(x, y, z, s, qq, &T);
 
-         if (is_analytic != 0) {
-            Tcpp = c2cpp(T);
-         } else {
+         if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
-            TSIL_SetParameters(&data, d, y, z, d, x, qq);
-            TSIL_Evaluate(&data, s);
-            Tcpp = c2cpp(TSIL_GetFunction(&data, "Tvyz"));
+            TSIL_SetParameters_(&data, d, y, z, d, x, qq);
+            TSIL_Evaluate_(&data, s);
+            T = TSIL_GetFunction_(&data, "Tvyz");
          }
       }
 
-      MLPut(link, Tcpp);
+      MLPut(link, T);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");
@@ -912,26 +903,23 @@ DLLEXPORT int TSILTbar(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL s  = parsvec.at(3);
       const TSIL_REAL qq = parsvec.at(4);
 
-      TSIL_COMPLEXCPP Tbarcpp;
+      TSIL_COMPLEXCPP Tbar;
 
       {
          Redirect_output rd(link);
 
-         TSIL_COMPLEX Tbar;
-         const auto is_analytic = TSIL_Tbaranalytic(x, y, z, s, qq, &Tbar);
+         const auto is_analytic = TSIL_Tbaranalytic_(x, y, z, s, qq, &Tbar);
 
-         if (is_analytic != 0) {
-            Tbarcpp = c2cpp(Tbar);
-         } else {
+         if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
-            TSIL_SetParameters(&data, d, y, z, d, x, qq);
-            TSIL_Evaluate(&data, s);
-            Tbarcpp = c2cpp(TSIL_GetFunction(&data, "TBARvyz"));
+            TSIL_SetParameters_(&data, d, y, z, d, x, qq);
+            TSIL_Evaluate_(&data, s);
+            Tbar = TSIL_GetFunction_(&data, "TBARvyz");
          }
       }
 
-      MLPut(link, Tbarcpp);
+      MLPut(link, Tbar);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");
@@ -960,26 +948,23 @@ DLLEXPORT int TSILU(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL s  = parsvec.at(4);
       const TSIL_REAL qq = parsvec.at(5);
 
-      TSIL_COMPLEXCPP Ucpp;
+      TSIL_COMPLEXCPP U;
 
       {
          Redirect_output rd(link);
 
-         TSIL_COMPLEX U;
-         const auto is_analytic = TSIL_Uanalytic(x, y, z, u, s, qq, &U);
+         const auto is_analytic = TSIL_Uanalytic_(x, y, z, u, s, qq, &U);
 
-         if (is_analytic != 0) {
-            Ucpp = c2cpp(U);
-         } else {
+         if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
-            TSIL_SetParameters(&data, y, z, x, d, u, qq);
-            TSIL_Evaluate(&data, s);
-            Ucpp = c2cpp(TSIL_GetFunction(&data, "Uzxyv"));
+            TSIL_SetParameters_(&data, y, z, x, d, u, qq);
+            TSIL_Evaluate_(&data, s);
+            U = TSIL_GetFunction_(&data, "Uzxyv");
          }
       }
 
-      MLPut(link, Ucpp);
+      MLPut(link, U);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");
@@ -1008,26 +993,23 @@ DLLEXPORT int TSILV(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL s  = parsvec.at(4);
       const TSIL_REAL qq = parsvec.at(5);
 
-      TSIL_COMPLEXCPP Vcpp;
+      TSIL_COMPLEXCPP V;
 
       {
          Redirect_output rd(link);
 
-         TSIL_COMPLEX V;
-         const auto is_analytic = TSIL_Vanalytic(x, y, z, u, s, qq, &V);
+         const auto is_analytic = TSIL_Vanalytic_(x, y, z, u, s, qq, &V);
 
-         if (is_analytic != 0) {
-            Vcpp = c2cpp(V);
-         } else {
+         if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
-            TSIL_SetParameters(&data, y, z, x, d, u, qq);
-            TSIL_Evaluate(&data, s);
-            Vcpp = c2cpp(TSIL_GetFunction(&data, "Vzxyv"));
+            TSIL_SetParameters_(&data, y, z, x, d, u, qq);
+            TSIL_Evaluate_(&data, s);
+            V = TSIL_GetFunction_(&data, "Vzxyv");
          }
       }
 
-      MLPut(link, Vcpp);
+      MLPut(link, V);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");
