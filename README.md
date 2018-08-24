@@ -18,12 +18,20 @@ directory:
 Then, call `cmake` to search for the Mathematica installation and for
 the TSIL library and header files:
 
-    cmake -DTSIL_DIR=$TSIL_DIR ..
+    cmake -DTSIL_DIR=$TSIL_DIR -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG ..
 
-where `$TSIL_DIR` points to the TSIL source directory.  Note, that
-TSIL must have been build with `-fPIC` in order to create the
-LibraryLink Mathematica interface.  Finally TSIL-Mma can be build by
-running
+where `$TSIL_DIR` points to the TSIL source directory and it has been
+assumed that TSIL has been build with long double precision
+(`TSIL_SIZE = -DTSIL_SIZE_LONG`) in the TSIL make file.  If TSIL has
+been build with double precision (`TSIL_SIZE = -DTSIL_SIZE_DOUBLE`),
+then cmake should be called with
+`-DCMAKE_CXX_FLAGS=-DTSIL_SIZE_DOUBLE` instead.  Note also, that TSIL
+must have been build with `-fPIC` in order to create the LibraryLink
+Mathematica interface:
+
+    TSIL_OPT = -O3 -funroll-loops -fPIC
+
+Finally TSIL-Mma can be build by running
 
     make
 
