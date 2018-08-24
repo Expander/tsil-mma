@@ -9,10 +9,10 @@ y  = 2;
 z  = 3;
 u  = 4;
 v  = 5;
-s  = 10;
+s  = 10 + I;
 qq = 1;
 
-Print[TSILEvaluate[x, y, z, u, v, qq, s]];
+Print[TSILEvaluate[x, y, z, u, v, s, qq]];
 
 Print["A(x,qq)          = ", TSILA[x, qq]];
 Print["Ap(x,qq)         = ", TSILAp[x, qq]];

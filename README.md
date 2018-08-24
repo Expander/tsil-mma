@@ -63,7 +63,7 @@ example:
     qq = 1;
 
     (* evaluate all TSIL integral functions *)
-    Print[TSILEvaluate[x, y, z, u, v, qq, s]];
+    Print[TSILEvaluate[x, y, z, u, v, s, qq]];
 
     (* individual TSIL integral functions *)
     Print["A(x,qq)          = ", TSILA[x, qq]];

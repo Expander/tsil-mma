@@ -93,7 +93,7 @@ TSILInitialize[libName_String] := (
     );
 
 TSILEvaluate[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ, qq_?NumericQ] :=
-    TSILEvaluateLL[{x, y, z, u, v, s, qq}];
+    TSILEvaluateLL[N @ {x, y, z, u, v, Re[s], Im[s], qq}];
 
 TSILA[x_?NumericQ, qq_?NumericQ] := TSILALL[N @ {x, qq}];
 
@@ -101,13 +101,13 @@ TSILAp[x_?NumericQ, qq_?NumericQ] := TSILApLL[N @ {x, qq}];
 
 TSILAeps[x_?NumericQ, qq_?NumericQ] := TSILAepsLL[N @ {x, qq}];
 
-TSILB[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBLL[N @ {x, y, s, qq}];
+TSILB[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBLL[N @ {x, y, Re[s], Im[s], qq}];
 
-TSILBp[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBpLL[N @ {x, y, s, qq}];
+TSILBp[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBpLL[N @ {x, y, Re[s], Im[s], qq}];
 
-TSILdBds[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILdBdsLL[N @ {x, y, s, qq}];
+TSILdBds[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILdBdsLL[N @ {x, y, Re[s], Im[s], qq}];
 
-TSILBeps[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBepsLL[N @ {x, y, s, qq}];
+TSILBeps[x_?NumericQ, y_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILBepsLL[N @ {x, y, Re[s], Im[s], qq}];
 
 TSILI[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILILL[N @ {x, y, z, qq}];
 
@@ -119,16 +119,16 @@ TSILIpp[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILIppLL[N @ {x
 
 TSILIp3[x_?NumericQ, y_?NumericQ, z_?NumericQ, qq_?NumericQ] := TSILIp3LL[N @ {x, y, z, qq}];
 
-TSILM[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ] := TSILMLL[N @ {x, y, z, u, v, s}];
+TSILM[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ] := TSILMLL[N @ {x, y, z, u, v, Re[s], Im[s]}];
 
-TSILS[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILSLL[N @ {x, y, z, s, qq}];
+TSILS[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILSLL[N @ {x, y, z, Re[s], Im[s], qq}];
 
-TSILT[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILTLL[N @ {x, y, z, s, qq}];
+TSILT[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILTLL[N @ {x, y, z, Re[s], Im[s], qq}];
 
-TSILTbar[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILTbarLL[N @ {x, y, z, s, qq}];
+TSILTbar[x_?NumericQ, y_?NumericQ, z_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILTbarLL[N @ {x, y, z, Re[s], Im[s], qq}];
 
-TSILU[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILULL[N @ {x, y, z, u, s, qq}];
+TSILU[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILULL[N @ {x, y, z, u, Re[s], Im[s], qq}];
 
-TSILV[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILVLL[N @ {x, y, z, u, s, qq}];
+TSILV[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, s_?NumericQ, qq_?NumericQ] := TSILVLL[N @ {x, y, z, u, Re[s], Im[s], qq}];
 
 End[];

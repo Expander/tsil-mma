@@ -223,7 +223,8 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
    const TSIL_REAL z  = parsvec.at(c++);
    const TSIL_REAL u  = parsvec.at(c++);
    const TSIL_REAL v  = parsvec.at(c++);
-   const TSIL_REAL s  = parsvec.at(c++);
+   const TSIL_REAL rs = parsvec.at(c++);
+   const TSIL_REAL is = parsvec.at(c++);
    const TSIL_REAL qq = parsvec.at(c++);
 
    if (static_cast<std::size_t>(c) != parsvec.size()) {
@@ -236,7 +237,7 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
    TSIL_Mma_Data data;
 
    TSIL_SetParameters_(&data.data, x, y, z, u, v, qq);
-   TSIL_Evaluate_(&data.data, s);
+   TSIL_Evaluate_(&data.data, rs);
 
    data.Ax = TSIL_A(x, qq);
    data.Ay = TSIL_A(y, qq);
@@ -460,14 +461,15 @@ DLLEXPORT int TSILB(WolframLibraryData /* libData */, MLINK link)
       const auto parsvec = read_list(link);
       const TSIL_REAL x  = parsvec.at(0);
       const TSIL_REAL y  = parsvec.at(1);
-      const TSIL_REAL s  = parsvec.at(2);
-      const TSIL_REAL qq = parsvec.at(3);
+      const TSIL_REAL rs = parsvec.at(2);
+      const TSIL_REAL is = parsvec.at(3);
+      const TSIL_REAL qq = parsvec.at(4);
 
       TSIL_COMPLEXCPP B;
 
       {
          Redirect_output rd(link);
-         B = TSIL_B_(x, y, s, qq);
+         B = TSIL_B_(x, y, TSIL_COMPLEXCPP(rs,is), qq);
       }
 
       MLPut(link, B);
@@ -494,14 +496,15 @@ DLLEXPORT int TSILBp(WolframLibraryData /* libData */, MLINK link)
       const auto parsvec = read_list(link);
       const TSIL_REAL x  = parsvec.at(0);
       const TSIL_REAL y  = parsvec.at(1);
-      const TSIL_REAL s  = parsvec.at(2);
-      const TSIL_REAL qq = parsvec.at(3);
+      const TSIL_REAL rs = parsvec.at(2);
+      const TSIL_REAL is = parsvec.at(3);
+      const TSIL_REAL qq = parsvec.at(4);
 
       TSIL_COMPLEXCPP Bp;
 
       {
          Redirect_output rd(link);
-         Bp = TSIL_Bp_(x, y, s, qq);
+         Bp = TSIL_Bp_(x, y, TSIL_COMPLEXCPP(rs,is), qq);
       }
 
       MLPut(link, Bp);
@@ -528,14 +531,15 @@ DLLEXPORT int TSILdBds(WolframLibraryData /* libData */, MLINK link)
       const auto parsvec = read_list(link);
       const TSIL_REAL x  = parsvec.at(0);
       const TSIL_REAL y  = parsvec.at(1);
-      const TSIL_REAL s  = parsvec.at(2);
-      const TSIL_REAL qq = parsvec.at(3);
+      const TSIL_REAL rs = parsvec.at(2);
+      const TSIL_REAL is = parsvec.at(3);
+      const TSIL_REAL qq = parsvec.at(4);
 
       TSIL_COMPLEXCPP dBds;
 
       {
          Redirect_output rd(link);
-         dBds = TSIL_dBds_(x, y, s, qq);
+         dBds = TSIL_dBds_(x, y, TSIL_COMPLEXCPP(rs,is), qq);
       }
 
       MLPut(link, dBds);
@@ -562,14 +566,15 @@ DLLEXPORT int TSILBeps(WolframLibraryData /* libData */, MLINK link)
       const auto parsvec = read_list(link);
       const TSIL_REAL x  = parsvec.at(0);
       const TSIL_REAL y  = parsvec.at(1);
-      const TSIL_REAL s  = parsvec.at(2);
-      const TSIL_REAL qq = parsvec.at(3);
+      const TSIL_REAL rs = parsvec.at(2);
+      const TSIL_REAL is = parsvec.at(3);
+      const TSIL_REAL qq = parsvec.at(4);
 
       TSIL_COMPLEXCPP Beps;
 
       {
          Redirect_output rd(link);
-         Beps = TSIL_Beps_(x, y, s, qq);
+         Beps = TSIL_Beps_(x, y, TSIL_COMPLEXCPP(rs,is), qq);
       }
 
       MLPut(link, Beps);
@@ -764,25 +769,26 @@ DLLEXPORT int TSILM(WolframLibraryData /* libData */, MLINK link)
 
    try {
       const auto parsvec = read_list(link);
-      const TSIL_REAL x = parsvec.at(0);
-      const TSIL_REAL y = parsvec.at(1);
-      const TSIL_REAL z = parsvec.at(2);
-      const TSIL_REAL u = parsvec.at(3);
-      const TSIL_REAL v = parsvec.at(4);
-      const TSIL_REAL s = parsvec.at(5);
+      const TSIL_REAL x  = parsvec.at(0);
+      const TSIL_REAL y  = parsvec.at(1);
+      const TSIL_REAL z  = parsvec.at(2);
+      const TSIL_REAL u  = parsvec.at(3);
+      const TSIL_REAL v  = parsvec.at(4);
+      const TSIL_REAL rs = parsvec.at(5);
+      const TSIL_REAL is = parsvec.at(6);
 
       TSIL_COMPLEXCPP M;
 
       {
          Redirect_output rd(link);
 
-         const auto is_analytic = TSIL_Manalytic_(x, y, z, u, v, s, &M);
+         const auto is_analytic = TSIL_Manalytic_(x, y, z, u, v, TSIL_COMPLEXCPP(rs,is), &M);
 
          if (is_analytic == 0) {
             const TSIL_REAL qq = 1; // M is independent of qq
             TSIL_DATA data{};
             TSIL_SetParameters_(&data, x, y, z, u, v, qq);
-            TSIL_Evaluate_(&data, s);
+            TSIL_Evaluate_(&data, rs);
             M = TSIL_GetFunction_(&data, "M");
          }
       }
@@ -812,21 +818,22 @@ DLLEXPORT int TSILS(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL x  = parsvec.at(0);
       const TSIL_REAL y  = parsvec.at(1);
       const TSIL_REAL z  = parsvec.at(2);
-      const TSIL_REAL s  = parsvec.at(3);
-      const TSIL_REAL qq = parsvec.at(4);
+      const TSIL_REAL rs = parsvec.at(3);
+      const TSIL_REAL is = parsvec.at(4);
+      const TSIL_REAL qq = parsvec.at(5);
 
       TSIL_COMPLEXCPP S;
 
       {
          Redirect_output rd(link);
 
-         const auto is_analytic = TSIL_Sanalytic_(x, y, z, s, qq, &S);
+         const auto is_analytic = TSIL_Sanalytic_(x, y, z, TSIL_COMPLEXCPP(rs,is), qq, &S);
 
          if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
             TSIL_SetParameters_(&data, d, y, z, d, x, qq);
-            TSIL_Evaluate_(&data, s);
+            TSIL_Evaluate_(&data, rs);
             S = TSIL_GetFunction_(&data, "Svyz");
          }
       }
@@ -856,21 +863,22 @@ DLLEXPORT int TSILT(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL x  = parsvec.at(0);
       const TSIL_REAL y  = parsvec.at(1);
       const TSIL_REAL z  = parsvec.at(2);
-      const TSIL_REAL s  = parsvec.at(3);
-      const TSIL_REAL qq = parsvec.at(4);
+      const TSIL_REAL rs = parsvec.at(3);
+      const TSIL_REAL is = parsvec.at(4);
+      const TSIL_REAL qq = parsvec.at(5);
 
       TSIL_COMPLEXCPP T;
 
       {
          Redirect_output rd(link);
 
-         const auto is_analytic = TSIL_Tanalytic_(x, y, z, s, qq, &T);
+         const auto is_analytic = TSIL_Tanalytic_(x, y, z, TSIL_COMPLEXCPP(rs,is), qq, &T);
 
          if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
             TSIL_SetParameters_(&data, d, y, z, d, x, qq);
-            TSIL_Evaluate_(&data, s);
+            TSIL_Evaluate_(&data, rs);
             T = TSIL_GetFunction_(&data, "Tvyz");
          }
       }
@@ -900,21 +908,22 @@ DLLEXPORT int TSILTbar(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL x  = parsvec.at(0);
       const TSIL_REAL y  = parsvec.at(1);
       const TSIL_REAL z  = parsvec.at(2);
-      const TSIL_REAL s  = parsvec.at(3);
-      const TSIL_REAL qq = parsvec.at(4);
+      const TSIL_REAL rs = parsvec.at(3);
+      const TSIL_REAL is = parsvec.at(4);
+      const TSIL_REAL qq = parsvec.at(5);
 
       TSIL_COMPLEXCPP Tbar;
 
       {
          Redirect_output rd(link);
 
-         const auto is_analytic = TSIL_Tbaranalytic_(x, y, z, s, qq, &Tbar);
+         const auto is_analytic = TSIL_Tbaranalytic_(x, y, z, TSIL_COMPLEXCPP(rs,is), qq, &Tbar);
 
          if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
             TSIL_SetParameters_(&data, d, y, z, d, x, qq);
-            TSIL_Evaluate_(&data, s);
+            TSIL_Evaluate_(&data, rs);
             Tbar = TSIL_GetFunction_(&data, "TBARvyz");
          }
       }
@@ -945,21 +954,22 @@ DLLEXPORT int TSILU(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL y  = parsvec.at(1);
       const TSIL_REAL z  = parsvec.at(2);
       const TSIL_REAL u  = parsvec.at(3);
-      const TSIL_REAL s  = parsvec.at(4);
-      const TSIL_REAL qq = parsvec.at(5);
+      const TSIL_REAL rs = parsvec.at(4);
+      const TSIL_REAL is = parsvec.at(5);
+      const TSIL_REAL qq = parsvec.at(6);
 
       TSIL_COMPLEXCPP U;
 
       {
          Redirect_output rd(link);
 
-         const auto is_analytic = TSIL_Uanalytic_(x, y, z, u, s, qq, &U);
+         const auto is_analytic = TSIL_Uanalytic_(x, y, z, u, TSIL_COMPLEXCPP(rs,is), qq, &U);
 
          if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
             TSIL_SetParameters_(&data, y, z, x, d, u, qq);
-            TSIL_Evaluate_(&data, s);
+            TSIL_Evaluate_(&data, rs);
             U = TSIL_GetFunction_(&data, "Uzxyv");
          }
       }
@@ -990,21 +1000,22 @@ DLLEXPORT int TSILV(WolframLibraryData /* libData */, MLINK link)
       const TSIL_REAL y  = parsvec.at(1);
       const TSIL_REAL z  = parsvec.at(2);
       const TSIL_REAL u  = parsvec.at(3);
-      const TSIL_REAL s  = parsvec.at(4);
-      const TSIL_REAL qq = parsvec.at(5);
+      const TSIL_REAL rs = parsvec.at(4);
+      const TSIL_REAL is = parsvec.at(5);
+      const TSIL_REAL qq = parsvec.at(6);
 
       TSIL_COMPLEXCPP V;
 
       {
          Redirect_output rd(link);
 
-         const auto is_analytic = TSIL_Vanalytic_(x, y, z, u, s, qq, &V);
+         const auto is_analytic = TSIL_Vanalytic_(x, y, z, u, TSIL_COMPLEXCPP(rs,is), qq, &V);
 
          if (is_analytic == 0) {
             const TSIL_REAL d = 1;
             TSIL_DATA data{};
             TSIL_SetParameters_(&data, y, z, x, d, u, qq);
-            TSIL_Evaluate_(&data, s);
+            TSIL_Evaluate_(&data, rs);
             V = TSIL_GetFunction_(&data, "Vzxyv");
          }
       }
