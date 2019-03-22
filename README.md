@@ -6,6 +6,24 @@ integral library [TSIL](https://www.niu.edu/spmartin/TSIL/) [[CPC 174
 (2006) 133-151](https://arxiv.org/abs/hep-ph/0501132)].  TSIL is
 written by Stephen P. Martin and David G. Robertson.
 
+Building TSIL
+----------------
+
+First, TSIL must be [downloaded](https://www.niu.edu/spmartin/TSIL/)
+and extracted.  Afterwards, edit the TSIL `Makefile` and add `-fPIC`
+to `TSIL_OPT`:
+
+    TSIL_OPT = -O3 -funroll-loops -fPIC
+
+In addition, we recommend to enable long double precision in the TSIL
+`Makefile` (enabled by default):
+
+    TSIL_SIZE = -DTSIL_SIZE_LONG
+
+Afterwards, run
+
+    make
+
 Building TSIL-Mma
 -----------------
 
@@ -18,18 +36,21 @@ directory:
 Then, call `cmake` to search for the Mathematica installation and for
 the TSIL library and header files:
 
-    cmake -DTSIL_DIR=$TSIL_DIR -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG ..
+    cmake -DTSIL_DIR=/path/to/tsil -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG ..
 
-where `$TSIL_DIR` points to the TSIL source directory and it has been
-assumed that TSIL has been build with long double precision
-(`TSIL_SIZE = -DTSIL_SIZE_LONG`) in the TSIL make file.  If TSIL has
-been build with double precision (`TSIL_SIZE = -DTSIL_SIZE_DOUBLE`),
-then cmake should be called with
-`-DCMAKE_CXX_FLAGS=-DTSIL_SIZE_DOUBLE` instead.  Note also, that TSIL
-must have been build with `-fPIC` in order to create the LibraryLink
-Mathematica interface:
+The variable `CMAKE_CXX_FLAGS` must be set to the value of `TSIL_SIZE`
+that has been set in the TSIL `Makefile` (see above):
 
-    TSIL_OPT = -O3 -funroll-loops -fPIC
+* If TSIL has been build with long double precision (`TSIL_SIZE = -DTSIL_SIZE_LONG`), pass to cmake:
+
+      -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG
+
+  This is the default TSIL configuration.
+
+* If TSIL has been build with double precision (`TSIL_SIZE = -DTSIL_SIZE_DOUBLE`), pass to cmake:
+
+      -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_DOUBLE
+
 
 Finally TSIL-Mma can be build by running
 
