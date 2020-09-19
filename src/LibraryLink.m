@@ -12,7 +12,7 @@ Arguments:
 ";
 
 TSILEvaluate::usage = "Evaluate all integral functions. 
-Parameters: x, y, z, u, v, s, qq";
+Parameters: x, y, z, u, v, s, Q^2";
 TSILA::usage = "A(x,Q^2)";
 TSILAp::usage = "Ap(x,Q^2)";
 TSILAeps::usage = "Aeps(x,Q^2)";
@@ -26,11 +26,11 @@ TSILIp2::usage = "Ip2(x,y,z,Q^2)";
 TSILIpp::usage = "Ipp(x,y,z,Q^2)";
 TSILIp3::usage = "Ip3(x,y,z,Q^2)";
 TSILM::usage = "M(x,y,z,u,v,s)";
-TSILS::usage = "S(x,y,z,s,qq)";
-TSILT::usage = "T(x,y,z,s,qq)";
-TSILTbar::usage = "Tbar(x,y,z,s,qq)";
-TSILU::usage = "U(x,y,z,u,s,qq)";
-TSILV::usage = "U(x,y,z,u,s,qq)";
+TSILS::usage = "S(x,y,z,s,Q^2)";
+TSILT::usage = "T(x,y,z,s,Q^2)";
+TSILTbar::usage = "Tbar(x,y,z,s,Q^2)";
+TSILU::usage = "U(x,y,z,u,s,Q^2)";
+TSILV::usage = "U(x,y,z,u,s,Q^2)";
 
 (* output parameters *)
 { Mxyzuv,
