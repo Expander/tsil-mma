@@ -239,14 +239,14 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
    TSIL_SetParameters_(&data.data, x, y, z, u, v, qq);
    TSIL_Evaluate_(&data.data, rs);
 
-   data.Ax = TSIL_A(x, qq);
-   data.Ay = TSIL_A(y, qq);
-   data.Az = TSIL_A(z, qq);
-   data.Au = TSIL_A(u, qq);
-   data.Av = TSIL_A(v, qq);
+   data.Ax = TSIL_A_(x, qq);
+   data.Ay = TSIL_A_(y, qq);
+   data.Az = TSIL_A_(z, qq);
+   data.Au = TSIL_A_(u, qq);
+   data.Av = TSIL_A_(v, qq);
 
-   data.Ixyv = TSIL_I2(x, y, v, qq);
-   data.Izuv = TSIL_I2(z, u, v, qq);
+   data.Ixyv = TSIL_I2_(x, y, v, qq);
+   data.Izuv = TSIL_I2_(z, u, v, qq);
 
    return data;
 }
