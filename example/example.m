@@ -1,7 +1,7 @@
 (* load function definitions *)
 Get[FileNameJoin[{"..", "src", "LibraryLink.m"}]];
 
-(* initialize the LibrayLink *)
+(* initialize the LibrayLink, replace .so by .dylib on MacOS *)
 TSILInitialize[FileNameJoin[{"src", "LibraryLink.so"}]];
 
 x  = 1;
