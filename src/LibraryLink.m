@@ -52,44 +52,25 @@ TSILInfoMessage[s_]  := Message[TSIL::info, s];
 Begin["`Private`"];
 
 TSILInitialize[libName_String] := (
-       TSILEvaluateLL =
-          LibraryFunctionLoad[libName, "TSILEvaluate", LinkObject, LinkObject];
-       TSILALL =
-          LibraryFunctionLoad[libName, "TSILA", LinkObject, LinkObject];
-       TSILApLL =
-          LibraryFunctionLoad[libName, "TSILAp", LinkObject, LinkObject];
-       TSILAepsLL =
-          LibraryFunctionLoad[libName, "TSILAeps", LinkObject, LinkObject];
-       TSILBLL =
-          LibraryFunctionLoad[libName, "TSILB", LinkObject, LinkObject];
-       TSILBpLL =
-          LibraryFunctionLoad[libName, "TSILBp", LinkObject, LinkObject];
-       TSILdBdsLL =
-          LibraryFunctionLoad[libName, "TSILdBds", LinkObject, LinkObject];
-       TSILBepsLL =
-          LibraryFunctionLoad[libName, "TSILBeps", LinkObject, LinkObject];
-       TSILILL =
-          LibraryFunctionLoad[libName, "TSILI", LinkObject, LinkObject];
-       TSILIpLL =
-          LibraryFunctionLoad[libName, "TSILIp", LinkObject, LinkObject];
-       TSILIp2LL =
-          LibraryFunctionLoad[libName, "TSILIp2", LinkObject, LinkObject];
-       TSILIppLL =
-          LibraryFunctionLoad[libName, "TSILIpp", LinkObject, LinkObject];
-       TSILIp3LL =
-          LibraryFunctionLoad[libName, "TSILIp3", LinkObject, LinkObject];
-       TSILMLL =
-          LibraryFunctionLoad[libName, "TSILM", LinkObject, LinkObject];
-       TSILSLL =
-          LibraryFunctionLoad[libName, "TSILS", LinkObject, LinkObject];
-       TSILTLL =
-          LibraryFunctionLoad[libName, "TSILT", LinkObject, LinkObject];
-       TSILTbarLL =
-          LibraryFunctionLoad[libName, "TSILTbar", LinkObject, LinkObject];
-       TSILULL =
-          LibraryFunctionLoad[libName, "TSILU", LinkObject, LinkObject];
-       TSILVLL =
-          LibraryFunctionLoad[libName, "TSILV", LinkObject, LinkObject];
+       TSILEvaluateLL = LibraryFunctionLoad[libName, "TSILEvaluate", LinkObject, LinkObject];
+       TSILALL        = LibraryFunctionLoad[libName, "TSILA"       , LinkObject, LinkObject];
+       TSILApLL       = LibraryFunctionLoad[libName, "TSILAp"      , LinkObject, LinkObject];
+       TSILAepsLL     = LibraryFunctionLoad[libName, "TSILAeps"    , LinkObject, LinkObject];
+       TSILBLL        = LibraryFunctionLoad[libName, "TSILB"       , LinkObject, LinkObject];
+       TSILBpLL       = LibraryFunctionLoad[libName, "TSILBp"      , LinkObject, LinkObject];
+       TSILdBdsLL     = LibraryFunctionLoad[libName, "TSILdBds"    , LinkObject, LinkObject];
+       TSILBepsLL     = LibraryFunctionLoad[libName, "TSILBeps"    , LinkObject, LinkObject];
+       TSILILL        = LibraryFunctionLoad[libName, "TSILI"       , LinkObject, LinkObject];
+       TSILIpLL       = LibraryFunctionLoad[libName, "TSILIp"      , LinkObject, LinkObject];
+       TSILIp2LL      = LibraryFunctionLoad[libName, "TSILIp2"     , LinkObject, LinkObject];
+       TSILIppLL      = LibraryFunctionLoad[libName, "TSILIpp"     , LinkObject, LinkObject];
+       TSILIp3LL      = LibraryFunctionLoad[libName, "TSILIp3"     , LinkObject, LinkObject];
+       TSILMLL        = LibraryFunctionLoad[libName, "TSILM"       , LinkObject, LinkObject];
+       TSILSLL        = LibraryFunctionLoad[libName, "TSILS"       , LinkObject, LinkObject];
+       TSILTLL        = LibraryFunctionLoad[libName, "TSILT"       , LinkObject, LinkObject];
+       TSILTbarLL     = LibraryFunctionLoad[libName, "TSILTbar"    , LinkObject, LinkObject];
+       TSILULL        = LibraryFunctionLoad[libName, "TSILU"       , LinkObject, LinkObject];
+       TSILVLL        = LibraryFunctionLoad[libName, "TSILV"       , LinkObject, LinkObject];
     );
 
 TSILEvaluate[x_?NumericQ, y_?NumericQ, z_?NumericQ, u_?NumericQ, v_?NumericQ, s_?NumericQ, qq_?NumericQ] :=
