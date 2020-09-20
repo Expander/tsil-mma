@@ -65,9 +65,11 @@ directory):
 
     Get[FileNameJoin[{"..", "src", "LibraryLink.m"}]];
 
-Afterwards, TSIL-Mma LibraryLink library must be loaded using the
-`TSILInitialize[libName]` function, which takes as argument
-(`libName`) the path to the created `LibraryLink.so` library:
+Afterwards, the TSIL-Mma LibraryLink library must be loaded using the
+function `TSILInitialize[libName]`.  The function argument `libName`
+is the name of the created library, including the path.  On Linux the
+library is called `LibraryLink.so`, on MacOS it is called
+`LibraryLink.dylib`.  Thus, on Linux you may write:
 
     libName = FileNameJoin[{"src", "LibraryLink.so"}];
     TSILInitialize[libName];
