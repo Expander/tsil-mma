@@ -184,8 +184,8 @@ std::vector<TSIL_REAL> read_list(MLINK link)
 
    std::vector<TSIL_REAL> vec(N, 0.);
 
-   for (int i = 0; i < N; i++) {
-      vec[i] = MLRead<TSIL_REAL>(link);
+   for (auto& v: vec) {
+      v = MLRead<TSIL_REAL>(link);
    }
 
    if (MLNewPacket(link) == 0) {
