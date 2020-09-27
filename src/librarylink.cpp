@@ -52,15 +52,6 @@ void MLPut(MLINK link, std::complex<T> c)
    }
 }
 
-template <class T>
-void MLPut(MLINK link, const std::vector<T>& v)
-{
-   MLPutFunction(link, "List", v.size());
-   for (std::size_t i = 0; i < v.size(); i++) {
-      MLPut(link, v[i]);
-   }
-}
-
 /********************* put rules to types *********************/
 
 void MLPutRule(MLINK link, const std::string& name)
