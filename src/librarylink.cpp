@@ -197,7 +197,7 @@ std::vector<TSIL_REAL> read_list(MLINK link)
 
 /******************************************************************/
 
-struct TSIL_Mma_Data {
+struct TSIL_Mma_results {
    TSIL_DATA data{};
    TSIL_COMPLEXCPP Ax{}, Ay{}, Az{}, Au{}, Av{};
    TSIL_COMPLEXCPP Ixyv{}, Izuv{};
@@ -205,7 +205,7 @@ struct TSIL_Mma_Data {
 
 /******************************************************************/
 
-TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
+TSIL_Mma_results calculate_results(const std::vector<TSIL_REAL>& parsvec)
 {
    int c = 0; // counter
 
@@ -225,24 +225,24 @@ TSIL_Mma_Data make_data(const std::vector<TSIL_REAL>& parsvec)
          " parameters have been read.");
    }
 
-   TSIL_Mma_Data data;
+   TSIL_Mma_results results;
 
-   TSIL_SetParameters_(&data.data, x, y, z, u, v, qq);
-   TSIL_Evaluate_(&data.data, rs);
+   TSIL_SetParameters_(&results.data, x, y, z, u, v, qq);
+   TSIL_Evaluate_(&results.data, rs);
 
-   data.Ax = TSIL_A_(x, qq);
-   data.Ay = TSIL_A_(y, qq);
-   data.Az = TSIL_A_(z, qq);
-   data.Au = TSIL_A_(u, qq);
-   data.Av = TSIL_A_(v, qq);
+   results.Ax = TSIL_A_(x, qq);
+   results.Ay = TSIL_A_(y, qq);
+   results.Az = TSIL_A_(z, qq);
+   results.Au = TSIL_A_(u, qq);
+   results.Av = TSIL_A_(v, qq);
 
-   data.Ixyv = TSIL_I2_(x, y, v, qq);
-   data.Izuv = TSIL_I2_(z, u, v, qq);
+   results.Ixyv = TSIL_I2_(x, y, v, qq);
+   results.Izuv = TSIL_I2_(z, u, v, qq);
 
-   return data;
+   return results;
 }
 
-void put_data(TSIL_Mma_Data& data, MLINK link)
+void put_results(TSIL_Mma_results& results, MLINK link)
 {
 #include "tsil_global.h"
 #include "tsil_names.h"
@@ -258,46 +258,46 @@ void put_data(TSIL_Mma_Data& data, MLINK link)
       ;
 
    MLPutFunction(link, "List", len);
-   MLPutRuleTo(link, TSIL_GetFunction_(&data.data, "M"), "Mxyzuv");
+   MLPutRuleTo(link, TSIL_GetFunction_(&results.data, "M"), "Mxyzuv");
 
    for (const auto& func : uname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&results.data, p), p);
       }
    }
 
    for (const auto& func : tname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&results.data, p), p);
       }
    }
 
    for (const auto& func : tbarname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&results.data, p), p);
       }
    }
 
    for (const auto& func : sname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&results.data, p), p);
       }
    }
 
    for (const auto& func : bname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&results.data, p), p);
       }
    }
 
    for (const auto& func : vname) {
       for (const auto& p : func) {
-         MLPutRuleTo(link, TSIL_GetFunction_(&data.data, p), p);
+         MLPutRuleTo(link, TSIL_GetFunction_(&results.data, p), p);
       }
    }
 
 #define MLPutRuleToTSILFunction(name) \
-   MLPutRuleTo(link, data.name, #name)
+   MLPutRuleTo(link, results.name, #name)
 
    MLPutRuleToTSILFunction(Ax);
    MLPutRuleToTSILFunction(Ay);
@@ -325,14 +325,14 @@ DLLEXPORT int TSILEvaluate(
    }
 
    try {
-      TSIL_Mma_Data data;
+      TSIL_Mma_results results;
 
       {
          Redirect_output rd(link);
-         data = make_data(read_list(link));
+         results = calculate_results(read_list(link));
       }
 
-      put_data(data, link);
+      put_results(results, link);
    } catch (const std::exception& e) {
       put_message(link, "TSILErrorMessage", e.what());
       MLPutSymbol(link, "$Failed");
