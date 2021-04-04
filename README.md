@@ -13,16 +13,22 @@ First, TSIL must be [downloaded](https://www.niu.edu/spmartin/TSIL/)
 and extracted.  Afterwards, edit the TSIL `Makefile` and add `-fPIC`
 to `TSIL_OPT`:
 
-    TSIL_OPT = -O3 -funroll-loops -fPIC
+```mak
+TSIL_OPT = -O3 -funroll-loops -fPIC
+```
 
 In addition, we recommend to enable long double precision in the TSIL
 `Makefile` (enabled by default):
 
-    TSIL_SIZE = -DTSIL_SIZE_LONG
+```mak
+TSIL_SIZE = -DTSIL_SIZE_LONG
+```
 
 Afterwards, run
 
-    make
+```sh
+make
+```
 
 Building TSIL-Mma
 -----------------
@@ -30,31 +36,41 @@ Building TSIL-Mma
 To build TSIL-Mma, first create a build sub-directory and enter that
 directory:
 
-    mkdir build
-    cd build
+```sh
+mkdir build
+cd build
+```
 
 Then, call `cmake` to search for the Mathematica installation and for
 the TSIL library and header files:
 
-    cmake -DTSIL_DIR=/path/to/tsil -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG ..
+```sh
+cmake -DTSIL_DIR=/path/to/tsil -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG ..
+```
 
 The variable `CMAKE_CXX_FLAGS` must be set to the value of `TSIL_SIZE`
 that has been set in the TSIL `Makefile` (see above):
 
 * If TSIL has been build with long double precision (`TSIL_SIZE = -DTSIL_SIZE_LONG`), pass to cmake:
 
-      -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG
+```mak
+-DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG
+```
 
   This is the default TSIL configuration.
 
 * If TSIL has been build with double precision (`TSIL_SIZE = -DTSIL_SIZE_DOUBLE`), pass to cmake:
 
-      -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_DOUBLE
+```mak
+-DCMAKE_CXX_FLAGS=-DTSIL_SIZE_DOUBLE
+```
 
 
 Finally TSIL-Mma can be build by running
 
-    make
+```sh
+make
+```
 
 Usage
 -----
