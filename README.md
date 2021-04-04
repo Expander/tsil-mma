@@ -53,18 +53,17 @@ that has been set in the TSIL `Makefile` (see above):
 
 * If TSIL has been build with long double precision (`TSIL_SIZE = -DTSIL_SIZE_LONG`), pass to cmake:
 
-```mak
--DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG
-```
+  ```mak
+  -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_LONG
+  ```
 
   This is the default TSIL configuration.
 
 * If TSIL has been build with double precision (`TSIL_SIZE = -DTSIL_SIZE_DOUBLE`), pass to cmake:
 
-```mak
--DCMAKE_CXX_FLAGS=-DTSIL_SIZE_DOUBLE
-```
-
+  ```mak
+  -DCMAKE_CXX_FLAGS=-DTSIL_SIZE_DOUBLE
+  ```
 
 Finally TSIL-Mma can be build by running
 
