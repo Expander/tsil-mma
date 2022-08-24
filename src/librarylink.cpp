@@ -72,7 +72,7 @@ void MLPutRuleTo(MLINK link, T1 t, const T2& name)
 template<class T> T MLRead(MLINK link);
 
 template<>
-double MLRead(MLINK link)
+[[maybe_unused]] double MLRead(MLINK link)
 {
    double val = 0.;
 
@@ -84,7 +84,7 @@ double MLRead(MLINK link)
 }
 
 template<>
-long double MLRead(MLINK link)
+[[maybe_unused]] long double MLRead(MLINK link)
 {
    long double val = 0.;
 
