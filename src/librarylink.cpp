@@ -214,8 +214,8 @@ TSIL_Mma_results calculate_results(const std::vector<TSIL_REAL>& parsvec)
    const TSIL_REAL z  = parsvec.at(c++);
    const TSIL_REAL u  = parsvec.at(c++);
    const TSIL_REAL v  = parsvec.at(c++);
-   const TSIL_REAL rs = parsvec.at(c++);
-   const TSIL_REAL is = parsvec.at(c++);
+   const TSIL_REAL rs = parsvec.at(c++); // Re(s)
+   [[maybe_unused]] const TSIL_REAL is = parsvec.at(c++); // Im(s) is unused
    const TSIL_REAL qq = parsvec.at(c++);
 
    if (static_cast<std::size_t>(c) != parsvec.size()) {
