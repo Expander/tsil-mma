@@ -133,7 +133,7 @@ A full example script can be found in `example/example.m`.
 It can be run from the `build` directory as:
 
 ```wl
-math -run "<< \"../example/example.m\""
+math -run '<< "../example/example.m"'
 ```
 
 Author
